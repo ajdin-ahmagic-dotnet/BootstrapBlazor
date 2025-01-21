@@ -52,7 +52,7 @@ jobs:
 
     # Install the code signing tool    
     - name: Install Sign CLI tool
-      run: dotnet tool install --tool-path . sign
+      run: dotnet tool install --tool-path .
     
     # Login to Azure using a ServicePrincipal configured to authenticate agaist a GitHub Action
     - name: 'Az CLI login'
