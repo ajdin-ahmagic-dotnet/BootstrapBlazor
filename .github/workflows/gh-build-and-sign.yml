@@ -70,7 +70,6 @@ jobs:
         ./sign code azure-key-vault
         **/*.nupkg
         --base-directory "${{ github.workspace }}/BuildArtifacts"
-        --file-list "${{ github.workspace }}/config/filelist.txt"
         --publisher-name "Contoso"
         --description "One Sign CLI demo"
         --description-url "https://github.com/dotnet/sign"
