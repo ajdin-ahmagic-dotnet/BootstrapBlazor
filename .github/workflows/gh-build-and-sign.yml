@@ -31,7 +31,7 @@ jobs:
   sign:
     needs: build
     runs-on: windows-latest # Code signing must run on a Windows agent for Authenticode signing (dll/exe)
-    if: ${{ github.ref == 'refs/heads/main' }} # Only run this job on pushes to the main branch
+    if: ${{ github.ref == 'refs/heads/test' }} # Only run this job on pushes to the main branch
     permissions:
       id-token: write # Required for requesting the JWT
       
