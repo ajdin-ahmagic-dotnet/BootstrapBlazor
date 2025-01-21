@@ -26,7 +26,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: BuildArtifacts
-        path: src/BootstrapBlazor/bin/Release/**/*.*
+        path: src/BootstrapBlazor/bin/Release/BootstrapBlazor*.*
     
   sign:
     needs: build
