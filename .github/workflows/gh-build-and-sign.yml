@@ -23,13 +23,13 @@ jobs:
     
     # Publish the artifacts to sign and the file list, if any, as artifacts for the signing stage
     - name: Upload signing file list
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: config
         path: config
         
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: BuildArtifacts
         path: src/BootstrapBlazor/bin/Release/**/*.nupkg
