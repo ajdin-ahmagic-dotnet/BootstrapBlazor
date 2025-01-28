@@ -73,7 +73,6 @@ jobs:
         --publisher-name "BootstrapBlazor"
         --description "BootstrapBlazor"
         --description-url "https://github.com/dotnetcore/bootstrapblazor"
-        --azure-key-vault-managed-identity true
         --azure-key-vault-url "${{ secrets.KEY_VAULT_URL }}"
         --azure-key-vault-certificate "${{ secrets.KEY_VAULT_CERTIFICATE_ID }}"
     
