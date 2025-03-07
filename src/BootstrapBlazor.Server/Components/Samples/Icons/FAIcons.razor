@@ -1,5 +1,4 @@
 ﻿@page "/fa-icon"
-@layout MainLayout
 @inject IStringLocalizer<FAIcons> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -14,6 +13,10 @@
 
 <Pre>&lt;link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet"&gt;</Pre>
 
-<Pre>&lt;i class="fa-solid fa-home"&gt;&lt;/i&gt;</Pre>
+<div class="mb-2">
+    <i class="fa-brands fa-github"></i>
+</div>
+
+<Pre>&lt;i class="fa-brands fa-github"&gt;&lt;/i&gt;</Pre>
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>

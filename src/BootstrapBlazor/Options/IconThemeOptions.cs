@@ -36,12 +36,16 @@ public class IconThemeOptions
 #if NET8_0_OR_GREATER
         Icons = new Dictionary<string, FrozenDictionary<ComponentIcons, string>>()
         {
-            { "fa", FontAwesomeIcons.Icons.ToFrozenDictionary() }
+            { "fa", FontAwesomeIcons.Icons.ToFrozenDictionary() },
+            { "bootstrap", BootstrapIcons.Icons.ToFrozenDictionary() },
+            { "mdi", MaterialDesignIcons.Icons.ToFrozenDictionary() }
         }.ToFrozenDictionary();
 #else
         Icons = new()
         {
-            { "fa", FontAwesomeIcons.Icons }
+            { "fa", FontAwesomeIcons.Icons },
+            { "bootstrap", BootstrapIcons.Icons },
+            { "mdi", MaterialDesignIcons.Icons }
         };
 #endif
         ThemeKey = "fa";

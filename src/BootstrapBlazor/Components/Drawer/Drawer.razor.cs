@@ -19,7 +19,8 @@ public partial class Drawer
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"--bb-drawer-position: {Position};", !string.IsNullOrEmpty(Position))
+        .AddStyle("--bb-drawer-position", Position)
+        .AddClass($"--bb-drawer-zindex: {ZIndex};", ZIndex.HasValue)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -27,8 +28,8 @@ public partial class Drawer
     /// 获得 抽屉 Style 字符串
     /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
-        .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
+        .AddStyle("--bb-drawer-width", Width, Placement != Placement.Top && Placement != Placement.Bottom)
+        .AddStyle("--bb-drawer-height", Height, Placement == Placement.Top || Placement == Placement.Bottom)
         .Build();
 
     /// <summary>
@@ -108,6 +109,12 @@ public partial class Drawer
     public bool AllowResize { get; set; }
 
     /// <summary>
+    /// 获得/设置 z-index 参数值 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? ZIndex { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭抽屉回调委托 默认 null
     /// </summary>
     [Parameter]
@@ -118,6 +125,22 @@ public partial class Drawer
     /// </summary>
     [Parameter]
     public object? BodyContext { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsKeyboard { get; set; }
+
+    /// <summary>
+    /// 获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动
+    /// </summary>
+    [Parameter]
+    public bool BodyScroll { get; set; }
+
+    private string? KeyboardString => IsKeyboard ? "true" : null;
+
+    private string? BodyScrollString => BodyScroll ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -133,6 +156,12 @@ public partial class Drawer
             await InvokeVoidAsync("execute", Id, IsOpen);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
     /// 点击背景遮罩方法
@@ -153,6 +182,7 @@ public partial class Drawer
     /// 关闭抽屉方法
     /// </summary>
     /// <returns></returns>
+    [JSInvokable]
     public async Task Close()
     {
         IsOpen = false;

@@ -26,6 +26,11 @@ public class DrawerOption
     public string? Height { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false
+    /// </summary>
+    public bool IsKeyboard { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击遮罩是否关闭抽屉 默认为 false
     /// </summary>
     public bool IsBackdrop { get; set; }
@@ -34,6 +39,11 @@ public class DrawerOption
     /// 获得/设置 是否显示遮罩 默认为 true 显示遮罩
     /// </summary>
     public bool ShowBackdrop { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动
+    /// </summary>
+    public bool BodyScroll { get; set; }
 
     /// <summary>
     /// 获得/设置 组件出现位置 默认显示在 Left 位置
@@ -69,4 +79,9 @@ public class DrawerOption
     /// 获得/设置 相关连数据，多用于传值使用
     /// </summary>
     public object? BodyContext { get; set; }
+
+    /// <summary>
+    /// 获得/设置 z-index 参数值 默认 null 未设置
+    /// </summary>
+    public int? ZIndex { get; set; }
 }

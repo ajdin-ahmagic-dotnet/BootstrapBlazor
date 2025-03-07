@@ -5,6 +5,7 @@
 
 using AngleSharp.Dom;
 using Bunit.TestDoubles;
+using Microsoft.AspNetCore.Components.Rendering;
 using System.Reflection;
 using UnitTest.Misc;
 
@@ -386,6 +387,42 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ClickTabToNavigation, false);
+
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                pb.Add(a => a.Icon, "fa fa-fa");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text2");
+                pb.AddChildContent<DisableTabItemButton>();
+            });
+        });
+        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div>", cut.Markup);
+
+        var button = cut.FindComponent<DisableTabItemButton>();
+        Assert.NotNull(button);
+
+        await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
+        Assert.Contains("<div role=\"tab\" class=\"tabs-item active disabled\"><span class=\"tabs-item-text\">Text2</span></div>", cut.Markup);
+    }
+
+    [Fact]
+    public void SetDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<TabItem>();
+        cut.Instance.SetDisabled(true);
+    }
+
+    [Fact]
     public void MenuItem_Null()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
@@ -594,6 +631,53 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowNavigatorButtons_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowNavigatorButtons, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+
+        var links = cut.FindAll(".nav-link-bar");
+        Assert.Equal(2, links.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowNavigatorButtons, false);
+        });
+        links = cut.FindAll(".nav-link-bar");
+        Assert.Empty(links);
+    }
+
+    [Fact]
+    public void ShowActiveBar_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowActiveBar, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+        cut.Contains("<div class=\"tabs-active-bar\"></div>");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowActiveBar, false);
+        });
+        cut.DoesNotContain("<div class=\"tabs-active-bar\"></div>");
+    }
+
+    [Fact]
     public void Text_Ok()
     {
         var text = "Tab1";
@@ -791,5 +875,45 @@ public class TabTest : BootstrapBlazorTestBase
 
         var button = cut.Find(".btn-fs");
         await cut.InvokeAsync(() => button.Click());
+    }
+
+    [Fact]
+    public void BeforeNavigatorTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.Add(a => a.BeforeNavigatorTemplate, builder => builder.AddContent(0, "before-navigator-template"));
+                pb.Add(a => a.AfterNavigatorTemplate, builder => builder.AddContent(0, "after-navigator-template"));
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.ShowFullScreen, true);
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
+            });
+        });
+        cut.Contains("before-navigator-template");
+        cut.Contains("after-navigator-template");
+    }
+
+    class DisableTabItemButton : ComponentBase
+    {
+        [CascadingParameter, NotNull]
+        private TabItem? TabItem { get; set; }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.OnClickWithoutRender), OnDisabledTabItem);
+            builder.CloseComponent();
+        }
+
+        public Task OnDisabledTabItem()
+        {
+            TabItem.SetDisabled(true);
+            return Task.CompletedTask;
+        }
     }
 }

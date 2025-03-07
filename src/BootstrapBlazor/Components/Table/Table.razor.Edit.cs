@@ -294,18 +294,28 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem>? CreateItemCallback { get; set; }
 
+    /// <summary>
+    /// Get or sets Whether to automatically initialize model properties default value is false.
+    /// </summary>
+    [Parameter]
+    public bool IsAutoInitializeModelProperty { get; set; }
+
     private TItem CreateTItem() => CreateItemCallback?.Invoke() ?? CreateInstance();
+
+    private readonly string ErrorMessage = $"{typeof(TItem)} create instrance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
 
     private TItem CreateInstance()
     {
+        TItem? item;
         try
         {
-            return Activator.CreateInstance<TItem>();
+            item = ObjectExtensions.CreateInstance<TItem>(IsAutoInitializeModelProperty);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provider {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例");
+            throw new InvalidOperationException(ErrorMessage, ex);
         }
+        return item!;
     }
 
     /// <summary>
@@ -392,7 +402,7 @@ public partial class Table<TItem>
         StateHasChanged();
     }
 
-    private async Task QueryAsync(bool shouldRender, int? pageIndex = null)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)
     {
         if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
         {
@@ -405,7 +415,7 @@ public partial class Table<TItem>
             {
                 PageIndex = pageIndex.Value;
             }
-            await QueryData();
+            await QueryData(triggerByPagination);
             await InternalToggleLoading(false);
         }
 
@@ -451,12 +461,14 @@ public partial class Table<TItem>
     /// <summary>
     /// 调用 OnQuery 回调方法获得数据源
     /// </summary>
-    protected async Task QueryData()
+    protected async Task QueryData(bool triggerByPagination = false)
     {
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
             var queryOption = BuildQueryPageOptions();
+            // 是否为分页查询
+            queryOption.IsTriggerByPagination = triggerByPagination;
             // 设置是否为首次查询
             queryOption.IsFirstQuery = _firstQuery;
 

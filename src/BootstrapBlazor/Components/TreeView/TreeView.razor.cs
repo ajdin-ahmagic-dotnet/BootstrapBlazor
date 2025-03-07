@@ -17,7 +17,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
-    private string? ClassString => CssBuilder.Default("tree-view scroll")
+    private string? ClassString => CssBuilder.Default("tree-view")
         .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -316,6 +316,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
+    private bool _shouldRender = true;
+
     private static string? GetItemTextClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node-text")
         .AddClass(item.CssClass)
         .Build();
@@ -355,13 +357,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     protected override async Task OnParametersSetAsync()
     {
         _rows = null;
-        TreeNodeStateCache.Reset();
-
         if (Items != null)
         {
             if (Items.Count > 0)
             {
+                _shouldRender = false;
                 await CheckExpand(Items);
+                _shouldRender = true;
+
+                _rows = null;
             }
 
             if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
@@ -401,6 +405,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _shouldRender;
 
     /// <summary>
     /// <inheritdoc/>

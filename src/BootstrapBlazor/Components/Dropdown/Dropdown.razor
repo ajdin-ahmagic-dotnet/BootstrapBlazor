@@ -5,19 +5,28 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">
+    <DynamicElement TagName="button" type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled"
+                    TriggerClick="ShowSplit" OnClick="OnClickButton">
         @if (ButtonTemplate == null)
         {
-            @ButtonText
+            @if (_isAsyncLoading)
+            {
+                <i class="@LoadingIcon"></i>
+            }
+            else if (!string.IsNullOrEmpty(Icon))
+            {
+                <i class="@Icon"></i>
+            }
+            <span>@ButtonText</span>
         }
         else
         {
             @ButtonTemplate(SelectedItem)
         }
-    </button>
+    </DynamicElement>
     @if (ShowSplit)
     {
         <button type="button" class="@ClassName" data-bs-toggle="@ToggleString" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>
@@ -29,11 +38,13 @@
             {
                 if (ItemTemplate != null)
                 {
-                    @ItemTemplate.Invoke(item)
+                    <div class="@ActiveItem(item)">
+                        @ItemTemplate(item)
+                    </div>
                 }
                 else if (item.IsDisabled)
                 {
-                    <div class="@DisableItem(item)">@item.Text</div>
+                    <div class="@ActiveItem(item)">@item.Text</div>
                 }
                 else
                 {

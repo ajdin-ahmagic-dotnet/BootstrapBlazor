@@ -148,7 +148,7 @@
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search",
-    "NoDataTip": "Type something to search"
+    "NoDataTip": "No records found"
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Please select ...",
@@ -205,7 +205,7 @@
     "EditModalTitle": "Edit",
     "AddModalTitle": "New",
     "LineNoText": "No.",
-    "ColumnButtonTemplateHeaderText": "",
+    "ColumnButtonTemplateHeaderText": "Actions",
     "SearchTooltip": "<div class='search-input-tooltip'>Please input ...</br><kbd>Enter</kbd> Search <kbd>ESC</kbd> Clear</div>",
     "SearchModalTitle": "Searching",
     "AddButtonToastTitle": "Add Data",
@@ -312,7 +312,9 @@
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",
-    "FileSizeValidation": "File size must less than {0}"
+    "FileSizeValidation": "File size must less than {0}",
+    "DropUploadText": "Drop files here or <em>click to upload</em>",
+    "DropFooterText": ""
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Save",

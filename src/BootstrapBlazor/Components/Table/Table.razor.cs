@@ -186,7 +186,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
-    private string ScrollStyleString => $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;";
+    private string? GetScrollStyleString(bool condition) => condition
+        ? $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;"
+        : null;
 
     private int ActualScrollWidth => ScrollWidth ?? Options.CurrentValue.ScrollOptions.ScrollWidth;
 
@@ -1134,7 +1136,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (ColumnOrderCallback != null)
         {
-            cols = ColumnOrderCallback(cols).ToList();
+            cols = [.. ColumnOrderCallback(cols)];
         }
 
         await ReloadColumnOrdersFromBrowserAsync(cols);
@@ -1271,7 +1273,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
             // 如果 QueryItems 无默认值
             // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
-            RowsCache ??= IsTree ? TreeRows.GetAllItems() : (Items ?? QueryItems).ToList();
+            RowsCache ??= IsTree ? TreeRows.GetAllItems() : [.. (Items ?? QueryItems)];
             return RowsCache;
         }
     }

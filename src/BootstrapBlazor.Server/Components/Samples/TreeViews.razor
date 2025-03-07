@@ -37,15 +37,15 @@
     <section ignore>
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips1"].Value)</div>
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips2"].Value)</div>
-    </section>
-    <section ignore class="row form-inline">
-        <div class="col-12 col-lg-auto">
-            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
-            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
-        </div>
-        <div class="col-12 col-lg-auto">
-            <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
-            <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
+        <div class="row form-inline">
+            <div class="col-12 col-lg-auto">
+                <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
+                <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-lg-auto">
+                <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
+                <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
+            </div>
         </div>
     </section>
     <TreeView Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
@@ -184,12 +184,20 @@
 
 <DemoBlock Title="@Localizer["TreeViewVirtualizeTitle"]"
            Introduction="@Localizer["TreeViewVirtualizeIntro"]"
-           Name="DefaultExpand">
-    <section ignore>
-        @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+           Name="IsVirtualize">
+    <section ignore class="row g-3">
+        <div class="col-12">
+            @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+        </div>
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowSearch"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showSearch"></Switch>
+            </BootstrapInputGroup>
+        </div>
     </section>
     <div style="height: 400px">
-        <TreeView Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+        <TreeView Items="@VirtualizeItems" ShowCheckbox="true" ShowSearch="_showSearch" IsVirtualize="true"
                   AutoCheckChildren="true" AutoCheckParent="true"
                   OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
     </div>

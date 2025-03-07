@@ -10,12 +10,17 @@
         <TableColumns>
             <TableTemplateColumn Text="@Localizer["CacheListKey"]" TextWrap="true">
                 <Template Context="v">
-                    @v.Row.ToString()
+                    @GetKey(v.Row)
                 </Template>
             </TableTemplateColumn>
-            <TableTemplateColumn Text="@Localizer["CacheListValue"]" TextWrap="true" Width="220">
+            <TableTemplateColumn Text="@Localizer["CacheListValue"]" TextWrap="true" Width="220" CssClass="table-cache-value scroll">
                 <Template Context="v">
                     @GetValue(v.Row)
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn Text="@Localizer["CacheListExpiration"]" Width="180">
+                <Template Context="v">
+                    <CacheExpiration Context="v.Row"></CacheExpiration>
                 </Template>
             </TableTemplateColumn>
             <TableTemplateColumn Text="@Localizer["CacheListAction"]" Width="80">

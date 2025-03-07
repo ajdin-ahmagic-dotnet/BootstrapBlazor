@@ -21,7 +21,8 @@
     "WaterfallSummary": "瀑布流图片 Waterfall",
     "TranslateSummary": "翻译工具 Translate",
     "DrawingSummary": "画图 Drawing",
-    "AdminSummary": "中台 Admin"
+    "AdminSummary": "中台 Admin",
+    "OnlineSheet": "在线表格 UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "正在加载 ...",
@@ -83,7 +84,7 @@
     "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，本页面如果宽度过长，请 <kbd>F12</kbd> 人为减小可视页面宽度",
     "TablesFixedColHeaderTitle": "固定列头与列尾",
     "TablesFixedColHeaderIntro": "设置 <code>Fixed</code> 属性固定表头",
-    "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动",
+    "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动，本例中设置 <code>AllowResize=\"true\"</code> 固定列也可以调整宽度",
     "TablesFixedColTableHeaderTitle": "固定表头与列",
     "TablesFixedColTableHeaderIntro": "设置 <code>IsFixedHeader=\"true\"</code> 固定表头，设置 <code>Fixed</code> 对列进行固定",
     "TablesFixedExtendButtonsColumnTitle": "固定按钮操作列",
@@ -152,7 +153,7 @@
     "ToastsHeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 自定义标题栏内容",
     "ToastsAttrCategory": "Toast 类型",
     "ToastsAttrTitle": "Toast 标题",
-    "ToastsAttrContent": "Toast 内容",
+    "ToastsAttrContent": "Toast 内容，支持 Html 标签",
     "ToastsAttrDelay": "自动关闭时间",
     "ToastsAttrIsAutoHide": "是否自动关闭提示框",
     "ToastsAttrIsHtml": "内容是否包含 HTML",
@@ -389,7 +390,7 @@
     "ModalsDialogResizeIntro": "通过设置 <code>ShowResize=\"true\"</code> 可以通过鼠标拉动弹窗右下角进行窗口大小调整",
     "ModalsSmallPopup": "小弹窗",
     "ModalsBigPopup": "大弹窗",
-    "ModalsOversizedPopup": "超大弹窗",
+    "ModalsOverSizedPopup": "超大弹窗",
     "ModalsSuperLargePopup": "超超大弹窗",
     "ModalsFullScreenSizeTitle": "全屏弹窗",
     "ModalsFullScreenSizeIntro": "设置属性 <code>FullScreenSize</code> 即可",
@@ -892,6 +893,10 @@
     "NoBackdropIntro": "通过设置 <code>ShowBackdrop=\"false\"</code> 不显示遮罩，这种模式下可以与抽屉下面网页元素进行交互操作",
     "DrawerServiceTitle": "调用服务打开抽屉",
     "DrawerServiceIntro": "通过调用 <code>DrawerService</code> 服务打开抽屉弹窗",
+    "IsKeyboardTitle": "ESC 按键支持",
+    "IsKeyboardIntro": "组件默认使用 <kbd>ESC</kbd> 按键关闭抽屉弹窗，可通过 <code>IsKeyboard=\"true\"</code> 开启此功能",
+    "BodyScrollTitle": "页面滚动",
+    "BodyScrollIntro": "通过设置 <code>BodyScroll</code> 控制抽屉弹窗显示时是否允许滚动 <code>Body</code> 默认 false 不允许滚动",
     "Open": "点我打开",
     "Content": "抽屉内布局、组件等完全可以自定义",
     "Close": "关闭抽屉",
@@ -1025,9 +1030,14 @@
     "LabelsValidateForm2Description1": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
     "LabelsValidateForm2Description2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "LabelsValidateForm2Description3": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>",
-    "LabelsValidateForm2Description4": "<b>标签提示</b>",
     "ValidateFormAlignRight": "<b>右对齐</b><div>通过设置样式 <code>form-inline-end</code> 标签右对齐</div>",
-    "ValidateFormAlignCenter": "<b>居中对齐</b><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>"
+    "ValidateFormAlignCenter": "<b>居中对齐</b><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>",
+    "LabelsRowLabelWidthTitle": "样式设置标签宽度",
+    "LabelsRowLabelWidthIntro": "通过设置样式变量 <code>--bb-row-label-width</code> 控制标签宽度",
+    "LabelsWidthTitle": "参数设置标签宽度",
+    "LabelsWidthIntro": "通过设置变量 <code>LabelWidth</code> 控制标签宽度",
+    "LabelsWidthDescription": "组件 <code>ValidateForm</code> <code>EditorForm</code> <code>BootstrapLabelSetting</code> <code>ValidateForm</code> 均可以设置标签宽度值，组件采用 <b>就近原则</b> 来确定最终值",
+    "LabelsWidthCode1": "如上代码所示, 根据就近原则最终取值 <b>180</b>"
   },
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "安装",
@@ -1423,6 +1433,9 @@
     "Layouts_IsFixedFooter_Description": "是否固定 Footer 组件",
     "Layouts_IsFixedHeader_Description": "是否固定 Header 组件",
     "Layouts_ShowCollapseBar_Description": "是否显示收缩展开 Bar",
+    "Layouts_ShowSplitebar_Description": "是否显示左右分割栏",
+    "Layouts_SidebarMinWidth_Description": "侧边栏最小宽度",
+    "Layouts_SidebarMaxWidth_Description": "侧边栏最大宽度",
     "Layouts_ShowFooter_Description": "是否显示 Footer 模板",
     "Layouts_ShowGotoTop_Description": "是否显示返回顶端按钮",
     "Layouts_UseTabSet_Description": "是否开启多标签模式",
@@ -1757,6 +1770,8 @@
     "ColorIntro": "提供各种颜色的警告信息框 引用 <code>Color='Color.Primary'</code> 等颜色及样式类来定义下拉菜单的外在表现",
     "SplitTitle": "分裂式按钮下拉菜单",
     "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> 插入此符号为下拉选项作适当的间隔（距）处理。",
+    "IsAsyncTitle": "异步按钮",
+    "IsAsyncIntro": "通过设置 <code>IsAsync</code> 属性按钮是否为 <b>异步请求按钮</b>，默认为 <code>false</code>，<b>注意</b> 需要设置 <code>ShowSplit=\"true\"</code> 时才生效",
     "SizeTitle": "尺寸大小定义",
     "SizeIntro": "下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。",
     "DirectionTitle": "展开方向",
@@ -1773,6 +1788,8 @@
     "IsFixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
     "FixedButtonTextTitle": "设置固定按钮文字",
     "FixedButtonTextIntro": "通过设置 <code>FixedButtonText</code> 来设置固定按钮的初始文字",
+    "ButtonTemplateTitle": "按钮模板",
+    "ButtonTemplateIntro": "通过设置 <code>ButtonTemlate</code> 可以自定义显示内容",
     "AttributeValue": "当前选中的值",
     "AttributeClass": "样式",
     "AttributeColor": "颜色",
@@ -1782,11 +1799,14 @@
     "AttributeMenuItem": "菜单项渲染标签",
     "AttributeResponsive": "菜单对齐",
     "AttributeShowSplit": "分裂式按钮下拉菜单",
+    "AttributeIsAsync": "是否为异步按钮",
     "AttributeSize": "尺寸",
     "AttributeTagName": "标签",
     "AttributeButtonTemplate": "按钮模板",
     "AttributeItemTemplate": "菜单项模板",
     "AttributeItemsTemplate": "下拉菜单模板",
+    "EventDesc1": "点击按钮时触发此事件",
+    "EventDesc2": "点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
     "EventOnSelectedItemChanged": "下拉框值发生改变时触发",
     "FixedButtonText": "固定按钮显示文字",
     "Item1": "北京",
@@ -1802,7 +1822,9 @@
     "DropdownCascadeItem5": "朝阳区",
     "DropdownCascadeItem6": "海淀区",
     "DropdownCascadeItem7": "静安区",
-    "DropdownCascadeItem8": "黄浦区"
+    "DropdownCascadeItem8": "黄浦区",
+    "DropdownItemTemplateTitle": "下拉项模板",
+    "DropdownItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义下拉项显示内容，本例中通过自定义模板使用 <code>Tooltip</code> 组件增加鼠标悬浮是显示提示功能"
   },
   "BootstrapBlazor.Server.Components.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",
@@ -2067,6 +2089,8 @@
     "TabAtt3IsOnlyRenderActiveTab": "是否仅渲染 Active 标签",
     "TabAtt4ShowClose": "是否显示关闭按钮",
     "TabAtt5ShowExtendButtons": "是否显示扩展按钮",
+    "TabAttShowNavigatorButtons": "是否显示前后导航按钮",
+    "TabAttShowActiveBar": "是否显示活动标签",
     "TabAtt6ClickTabToNavigation": "点击标题时是否导航",
     "TabAtt7Placement": "设置标签位置",
     "TabAtt8Height": "设置标签高度",
@@ -2098,7 +2122,9 @@
     "AttributeNotAuthorized": "NotAuthorized 模板",
     "AttributeNotFound": "NotFound 模板",
     "AttributeExcludeUrls": "排除地址支持通配符",
-    "AttributeButtonTemplate": "按钮模板"
+    "AttributeButtonTemplate": "按钮模板",
+    "TabsDisabledTitle": "禁用",
+    "TabsDisabledIntro": "通过设置 <code>IsDisabled=\"true\"</code> 禁用当前 <code>TabItem</code> 禁止点击、拖动、关闭等操作"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",
@@ -2363,6 +2389,8 @@
     "ValidateFormTitle": "表单中使用",
     "ValidateFormIntro": "在表单中使用 <code>Checkbox</code> 时，显示标签文字会放置到组件前面",
     "ValidateFormDescription": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='input'>[传送门]</a>",
+    "ItemTemplateTitle": "项目模板",
+    "ItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 自定义显示 UI",
     "OnBeforeStateChangedTitle": "选中前回调方法",
     "OnBeforeStateChangedIntro": "通过设置 <code>OnBeforeStateChanged</code> 回调方法，可取消选中逻辑",
     "OnBeforeStateChangedText": "弹窗确认",
@@ -2399,6 +2427,8 @@
     "ShowLabelTitle": "双向绑定集合",
     "ShowLabelIntro": "绑定值为集合",
     "ShowLabelTip": "<code>TValue</code> 设置为 <code>IEnumerable&lt;int&gt;</code> 泛型集合，绑定集合的 <code>ValueField</code> 指定字段必须与泛型类型一致",
+    "ItemTemplateTitle": "项目模板",
+    "ItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 自定义显示 UI",
     "EnumTitle": "双向绑定枚举",
     "EnumIntro": "绑定值为枚举",
     "EnumTip": "当 <code>CheckboxList</code> 绑定一个枚举集合时，<code>Items</code> 不需要指定，<code>Items</code> 会被自动设置成枚举里面所有的值，如果需要绑定部分值时，请自行提供枚举集合 <code>Items</code>",
@@ -2931,6 +2961,8 @@
     "MultiSelectSearchTitle": "搜索功能",
     "MultiSelectSearchIntro": "通过设置 <code>ShowSearch</code> 值开启搜索功能",
     "MultiSelectSearchDescription": "本例中设置搜索回调委托方法 <code>OnSearchTextChanged</code> 进行自定义搜索结果，如果未设置时内部使用显示文本进行模糊匹配",
+    "MultiSelectFlagsEnumTitle": "Flags 枚举",
+    "MultiSelectFlagsEnumIntro": "绑定值为 <code>Enum</code> 数据类型时，如果枚举有 <code>Flags</code> 标签时，自动支持多选模式",
     "MultiSelectGroupTitle": "分组",
     "MultiSelectGroupIntro": "通过设置 <code>GroupName</code> 将下拉框中的备选项进行分组显示",
     "MultiSelectDisableTitle": "禁用功能",
@@ -3012,14 +3044,14 @@
     "RadiosVerticalIntro": "通过设置 <code>IsVertical</code> 使组件内部竖向排列",
     "RadiosEnumTitle": "绑定枚举类型",
     "RadiosEnumIntro": "通过双向绑定 <code>Value</code> 无需设置 <code>Items</code>",
-    "RadiosIsButtonTitle": "按钮样式",
-    "RadiosIsButtonIntro": "通过设定 <code>IsButton</code> 值为 <code>True</code> 将候选项更改为按钮样式",
-    "RadiosItemTemplateTitle": "项目模板",
-    "RadiosItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 自定义显示 UI",
     "RadiosEnumDescription": "通过设置 <code>IsAutoAddNullItem</code> 自动添加 <b>空值</b> 选项，通过设置 <code>NullItemText</code> 自定义 <b>空值</b> 选项",
     "RadiosEnumText": "空值",
     "RadiosColorTitle": "颜色",
     "RadiosColorIntro": "通过设置 <code>Color</code> 属性改变组件背景色",
+    "RadiosIsButtonTitle": "按钮样式",
+    "RadiosIsButtonIntro": "通过设定 <code>IsButton</code> 值为 <code>True</code> 将候选项更改为按钮样式",
+    "RadiosItemTemplateTitle": "项目模板",
+    "RadiosItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 自定义显示 UI",
     "RadiosDisplayText": "显示文字",
     "RadiosNullItemText": "空值显示文字",
     "RadiosIsDisabled": "是否禁用",
@@ -3037,7 +3069,10 @@
     "RadiosAdd1": "北京",
     "RadiosAdd2": "上海",
     "RadioListGenericTitle": "泛型支持",
-    "RadioListGenericIntro": "通过使用 <code>RadioListGeneric</code> 组件配合 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
+    "RadioListGenericIntro": "通过使用 <code>RadioListGeneric</code> 组件配合 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持",
+    "RadiosAutoSelectFirstWhenValueIsNullTitle": "自动选择第一候选项",
+    "RadiosAutoSelectFirstWhenValueIsNullIntro": "通过设置 <code>AutoSelectFirstWhenValueIsNull</code> 参数控制 <code>RadioList</code> 候选项选中情况，参数默认值为 <b>true</b>，即如果组件当前值与候选项中值无一致值时，自动选中第一个候选项，设置为 <b>false</b> 后，候选项将全部为未选中状态。",
+    "RadiosAutoSelectFirstWhenValueIsNull": "值未 null 时是否默认选中第一个候选项"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate 评分",
@@ -3115,6 +3150,7 @@
     "SelectsEnumDescription2": "绑定值为枚举类型时，设置 <code>PalceHolder</code> 无效",
     "SelectsEnumSelectText1": "可为空",
     "SelectsEnumSelectText2": "不为空",
+    "SelectsEnumSelectText3": "使用枚举整形值作为集合",
     "SelectsNullableTitle": "绑定可为空类型",
     "SelectsNullableIntro": "<code>Select</code> 组件绑定 <code>int?</code> 类型示例",
     "SelectsNullableDescription": "选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code>",
@@ -3261,7 +3297,14 @@
     "TextAreaScrollToBottom": "滚动到底部",
     "TextAreaScrollToTop": "滚动到顶部",
     "TextAreaScrollTo": "滚动+20",
-    "TextAreaAutoScroll": "自动滚屏"
+    "TextAreaAutoScroll": "自动滚屏",
+    "TextAreaUseShiftEnterTitle": "Shift Enter",
+    "TextAreaUseShiftEnterIntro": "通过设置 <code>UseShiftEnter=\"true\"</code> 开始使用 <kbd>Shift</kbd> + <kbd>Enter</kbd> 进行换行操作，适用于对话框类应用",
+    "TextAreaUseShiftEnterPlaceHolder": "请输入一些文字，Enter 发送 Shift + Enter 换行",
+    "TextAreaUseShiftEnter": "是否使用 Shift + Enter 代替原回车按键行为",
+    "TextAreaKeyEventTitle": "Enter/Esc 按键事件",
+    "TextAreaKeyEventIntro": "通过设置 <code>OnEnterAsync</code> <code>OnEscAsync</code> 开始 <kbd>Enter</kbd> <kbd>Esc</kbd> 按键回调事件",
+    "TextAreaKeyEventPlaceHolder": "按下 Enter/Esc 键触发事件"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "开启",
@@ -3431,7 +3474,10 @@
     "UploadsSaveFile": "保存文件",
     "UploadsSaveFileMsg": "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中",
     "UploadsRemoveMsg": "成功移除",
-    "UploadsIconTemplate": "文件图标模板"
+    "UploadsIconTemplate": "文件图标模板",
+    "DropUploadTitle": "拖拽上传",
+    "DropUploadIntro": "将文件拖拽到特定区域以进行上传",
+    "DropUploadFooterText": "文件大小不超过 5Mb"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
     "ChangeButtonText": "更改组件",
@@ -3517,7 +3563,8 @@
     "ValidateFormIValidateCollectionIntro": "<code>IValidateCollection</code> 接口提供了更加灵活的自定义 <code>联动</code> 校验，非常适合进行非常复杂的数据校验，例如多属性组合起来进行校验等场景。",
     "ValidateFormIValidateCollectionDescription": "本示例使用 <code>IValidateCollection</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同校验，更改任意单元格使电话号码相同时两个文本框均进行提示",
     "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
-    "ValidateMetadataTypeIntro": "模型通过 <code>[MetadataType(typeof(MockModelMetadataType))]</code> 指定元数据类型 <code>MockModelMetadataType</code> 进行模型验证，如果指定模型继承 <code>IValidateCollection</code> 接口时，调用其 <code>Validate</code> 方法进行数据合规性检查"
+    "ValidateMetadataTypeIntro": "模型通过 <code>[MetadataType(typeof(MockModelMetadataType))]</code> 指定元数据类型 <code>MockModelMetadataType</code> 进行模型验证，如果指定模型继承 <code>IValidateCollection</code> 接口时，调用其 <code>Validate</code> 方法进行数据合规性检查",
+    "LabelWidth": "标签宽度"
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",
@@ -4100,7 +4147,7 @@
     "LocatorsNormalInputText": "Ip 地址",
     "LocatorsNormalDisplayText": "地理位置",
     "LocatorsNormalButtonText": "定位",
-    "LocatorsProviderDesc": "组件库内置两个地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
+    "LocatorsProviderDesc": "<p>组件库内置两个免费在线地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>组件库内置一个收费在线地理位置定位器 <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget 包</a> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print 打印按钮",
@@ -4187,12 +4234,10 @@
     "SearchesNormalTitle": "基础用法",
     "SearchesNormalIntro": "输入部分数据进行搜索",
     "SearchesNormalDescription": "请输入 <code>1234</code> 获取智能提示，通过设置 <code>IsAutoFocus='true'</code> 开启自动获得焦点功能",
-    "SearchesClearValueTitle": "搜索后自动清空值",
-    "SearchesClearValueIntro": "通过设置 <code>IsAutoClearAfterSearch=&quot;true&quot;</code> 开启搜索后自动清空搜索框功能",
     "SearchesDisplayButtonTitle": "显示清空按钮",
     "SearchesDisplayButtonIntro": "通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮",
     "SearchesKeyboardsTitle": "键盘输入即时搜索",
-    "SearchesKeyboardsIntro": "通过设置 <code>IsTriggerSearchByInput</code> 参数控制是否实时进行搜索操作",
+    "SearchesKeyboardsIntro": "通过设置 <code>IsTriggerSearchByInput</code> 参数控制是否实时进行搜索操作，组件默认输入时即进行搜索，可通过 <code>IsTriggerSearchByInput=\"false\"</code> 关闭",
     "SearchesValidateFormTitle": "验证表单内使用",
     "SearchesValidateFormIntro": "内置于 <code>ValidateForm</code> 使用，输入中文时不会多次触发搜索功能",
     "SearchesNoDataTip": "自动完成数据无匹配项时提示信息",
@@ -4209,7 +4254,23 @@
     "SearchesOnSearch": "点击搜索时回调此委托",
     "SearchesOnClear": "点击清空时回调此委托",
     "SearchesItemTemplateTitle": "模板",
-    "SearchesItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 配合泛型数据可以做出自己想要的任何效果，本例中通过搜索任意关键字，后台调用任意第三方搜索结果并且进行展示，选中搜索项后通过 <code>OnSelectedItemChanged</code> 回调方法可以自行处理"
+    "SearchesItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 配合泛型数据可以做出自己想要的任何效果，本例中通过搜索任意关键字，后台调用任意第三方搜索结果并且进行展示，选中搜索项后通过 <code>OnSelectedItemChanged</code> 回调方法可以自行处理",
+    "SearchesShowPrefixIconTitle": "显示前缀图标",
+    "SearchesShowPrefixIconIntro": "通过设置 <code>ShowPrefixIcon</code> 参数控制是否显示前缀图标",
+    "SearchesShowPrefixIconDescription": "可以通过 <code>PrefixIconTemplate</code> 自定义前缀，本例中通过前缀模板使用 <code>Svg</code> 图标",
+    "SearchesButtonTemplateTitle": "按钮模板",
+    "SearchesButtonTemplateIntro": "通过设置 <code>ButtonTemplate</code> 自定义组件显示的按钮",
+    "SearchesButtonTemplateDesc": "通过设置 <code>PrefixButtonTemplate</code> 自定义组件前置显示的按钮",
+    "SearchesButtonTemplateDesc2": "在自定义模板中可以通过关联参数调用 <code>Search</code> 组件内部的 <code>OnClear</code> <code>OnSearch</code> 方法",
+    "SearchesIsClearableTitle": "IsClearable",
+    "SearchesIsClearableIntro": "通过设置 <code>IsClearable=\"true\"</code> 显示清空小图标",
+    "SearchesIsClearable": "是否显示清空小按钮",
+    "SearchesClearIcon": "清空图标",
+    "SearchesPrefixButtonTemplate": "前置按钮模板",
+    "SearchesButtonTemplate": "按钮模板",
+    "SearchesIconTemplateTitle": "图标模板",
+    "SearchesIconTemplateIntro": "通过设置 <code>IconTemplate</code> 自定义组件显示的图标",
+    "SearchesIconTemplateDesc": "搜索组件上下文 <code>SearchContext&lt;string&gt;</code> 提供了组件内部的 <code>OnClear</code> <code>OnSearch</code> 方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title 网站标题",
@@ -4715,6 +4776,7 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
+    "Html2Image": "Html 转 Image IHtml2Image",
     "Html2Pdf": "Html 转 Pdf IHtml2Pdf",
     "Mask": "遮罩服务 MaskService",
     "ContextMenu": "右键菜单 ContextMenu",
@@ -4792,7 +4854,11 @@
     "RDKit": "分子式组件 RDKit",
     "SmilesDrawer": "分子式组件 SmilesDrawer",
     "Affix": "固钉组件 Affix",
-    "Watermark": "水印组件 Watermark"
+    "Watermark": "水印组件 Watermark",
+    "OctIcon": "Oct Icons",
+    "UniverIcon": "Univer Icons",
+    "Typed": "打字机效果 Typed",
+    "UniverSheet": "表格组件 UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5944,7 +6010,9 @@
     "CustomCssIntro": "通过设置 <code>class</code> 自定义样式调整图标大小",
     "ExtensionAttr": "文件扩展名",
     "IconColorAttr": "扩展名标签背景色",
-    "BackgroundTemplateAttr": "自定义背景图模板"
+    "BackgroundTemplateAttr": "自定义背景图模板",
+    "SizeTitle": "大小",
+    "SizeIntro": "通过设置 <code>Size</code> 设置图标大小"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "Title": "PDF Reader PDF阅读器",
@@ -6408,7 +6476,7 @@
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack 布局",
     "BasicTitle": "普通用法",
-    "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
+    "BasicIntro": "可用于在水平或垂直堆栈中排列其子组件",
     "RowMode": "行布局",
     "ColumnMode": "列布局",
     "Mode": "布局类型",
@@ -6661,7 +6729,7 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
     "ElementIconTitle": "饿了么图标库",
     "ElementIconDescription": "饿了么免费开源图标库",
     "CopiedTooltipText": "拷贝成功",
@@ -6687,7 +6755,7 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "CopiedTooltipText": "拷贝成功",
@@ -6696,7 +6764,7 @@
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[传送门]</a> 查看"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconTitle": "蚂蚁图标库",
     "AntDesignIconDescription": "语义化的矢量图形",
     "CopiedTooltipText": "拷贝成功",
@@ -6704,6 +6772,24 @@
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
+    "OctIconTitle": "Github 图标库",
+    "OctIconDescription": "Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.",
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
+    "UniverIconTitle": "Univer Icon 图标库",
+    "UniverIconDescription": "Icons used by Univer",
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",
@@ -6906,10 +6992,45 @@
     "CacheListIntro": "通过 <code>ICacheManager</code> 接口方法管理组件库内部缓存",
     "CacheListKey": "键",
     "CacheListValue": "值",
+    "CacheListExpiration": "到期时间",
     "CacheListAction": "操作",
     "CacheListRefresh": "刷新",
     "CacheListDelete": "删除",
     "CacheListDeleteAll": "清除全部",
     "CacheListCount": "共 {0} 个键值"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Typeds": {
+    "TypedTitle": "Typed 打字机效果",
+    "TypedIntro": "输入任意字符串，它会按照你设置的速度输入，输入的内容会退格，然后根据你设置的字符串数量开始一个新句子。",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "通过设置 <code>Text</code> 参数设置要显示的文本",
+    "TypedOptionsTitle": "TypedOptions",
+    "TypedOptionsIntro": "通过设置 <code>TypedOptions</code> 参数的属性自定义打字速度、延时等设定"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Html2Images": {
+    "Html2ImageTitle": "Html2Image 网页元素转成图片服务",
+    "Html2ImageIntro": "将网页中任意区域内容转化成图片服务",
+    "Html2ImageElementTitle": "ToPng",
+    "Html2ImageElementIntro": "通过调用 <code>GetDataAsync</code> 方法获得 <b>base64-encoded</b> 图片",
+    "Html2ImageButtonText": "Image",
+    "Html2ImageDesc": "由于底层使用的是 <a href=\"https://github.com/bubkoo/html-to-image?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">html-to-image</a> 实际使用过程中遇到问题请参考项目 <a href=\"https://github.com/bubkoo/html-to-image/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UniverSheets": {
+    "UniverSheetTitle": "UniverSheet 电子表格组件",
+    "UniverSheetIntro": "封装开源办公套件 ​Univer​ 的核心电子表格组件，提供高性能、可扩展的在线表格解决方案",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "通过调用实例方法 <code>PushDataAsync</code> 推送数据到电子表格",
+    "NormalDesc1": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>保存数据</b> 按钮获得表格数据序列化的数据",
+    "NormalDesc2": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>工具栏</b> 第一个小按钮主动从服务器端获取数据",
+    "PushButtonText": "推送数据",
+    "SaveButtonText": "保存数据",
+    "ToastOnReadyTitle": "组件通知",
+    "ToastOnReadyContent": "表格组件已就绪，可进行后续数据推送等操作",
+    "PluginTitle": "自定义插件",
+    "PluginIntro": "通过设置 <code>Plugins</code> 参数设置自己的插件"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+    "ToastOnReadyTitle": "在线表格协作通知",
+    "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容"
   }
 }

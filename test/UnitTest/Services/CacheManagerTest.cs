@@ -67,6 +67,23 @@ public class CacheManagerTest : BootstrapBlazorTestBase
         actual = await GetOrCreateAsync(key);
         Assert.Equal(1, actual);
 
+        await Cache.GetOrCreateAsync("test-GetOrCreateAsync", async entry =>
+        {
+            await Task.Delay(1);
+            entry.Priority = CacheItemPriority.NeverRemove;
+            return "test";
+        });
+        Cache.Clear();
+        Assert.True(Cache.TryGetValue("test-GetOrCreateAsync", out string? v));
+        Assert.Equal("test", v);
+
+        await Cache.GetOrCreateAsync("test", async entry =>
+        {
+            await Task.Delay(1);
+            entry.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(1);
+            return "test";
+        });
+
         Task<int> GetOrCreateAsync(object key) => Cache.GetOrCreateAsync<int>(key, entry =>
         {
             val++;
@@ -128,5 +145,19 @@ public class CacheManagerTest : BootstrapBlazorTestBase
             val++;
             return val;
         });
+    }
+
+    [Fact]
+    public void TryGetCacheEntry()
+    {
+        Cache.GetOrCreate("test_01", entry =>
+        {
+            return 1;
+        });
+        Assert.True(Cache.TryGetCacheEntry("test_01", out var entry));
+        Assert.NotNull(entry);
+
+        Assert.False(Cache.TryGetCacheEntry(null, out var v));
+        Assert.Null(v);
     }
 }

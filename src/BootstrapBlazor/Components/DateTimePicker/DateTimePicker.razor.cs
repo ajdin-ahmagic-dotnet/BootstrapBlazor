@@ -87,6 +87,12 @@ public partial class DateTimePicker<TValue>
     public string? TimeFormat { get; set; }
 
     /// <summary>
+    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// </summary>
+    [Parameter]
+    public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
+
+    /// <summary>
     /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
     /// </summary>
     [Parameter]
@@ -372,6 +378,15 @@ public partial class DateTimePicker<TValue>
         return ret;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        TriggerHideCallback = nameof(TriggerHideCallback)
+    });
+
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
@@ -453,5 +468,16 @@ public partial class DateTimePicker<TValue>
         {
             await OnBlurAsync(Value);
         }
+    }
+
+    /// <summary>
+    /// 客户端弹窗关闭后由 Javascript 调用此方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerHideCallback()
+    {
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

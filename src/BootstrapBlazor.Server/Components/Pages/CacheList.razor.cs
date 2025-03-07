@@ -19,7 +19,7 @@ public partial class CacheList
     [Inject, NotNull]
     private IStringLocalizer<CacheList>? Localizer { get; set; }
 
-    private List<object>? _cacheList;
+    private List<object?> _cacheList = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -32,8 +32,11 @@ public partial class CacheList
 
     private void OnDelete(object key)
     {
-        CacheManager.Clear(key);
-        UpdateCacheList();
+        if (key is ICacheEntry entry)
+        {
+            CacheManager.Clear(entry.Key);
+            UpdateCacheList();
+        }
     }
 
     private void OnDeleteAll()
@@ -49,30 +52,29 @@ public partial class CacheList
 
     private void UpdateCacheList()
     {
-        _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).ToList();
+        _cacheList = [.. CacheManager.Keys.OrderBy(i => i.ToString()).Select(key =>
+        {
+            ICacheEntry? entry = null;
+            if (CacheManager.TryGetCacheEntry(key, out var val))
+            {
+                entry = val;
+            }
+            return entry;
+        }).Where(i => i != null)];
     }
 
-    private string GetValue(object key)
-    {
-        string ret = "-";
-        if (CacheManager.TryGetValue(key, out object? value))
-        {
-            if (value is string stringValue)
-            {
-                ret = stringValue;
-                return ret;
-            }
+    private static string GetKey(object data) => data is ICacheEntry entry ? entry.Key.ToString()! : "-";
 
-            if (value is IEnumerable)
-            {
-                ret = $"{LambdaExtensions.ElementCount(value)}";
-            }
-            else
-            {
-                ret = value?.ToString() ?? "-";
-            }
+    private static string GetValue(object data) => data is ICacheEntry entry ? GetCacheEntryValue(entry) : "-";
+
+    private static string GetCacheEntryValue(ICacheEntry entry)
+    {
+        var value = entry.Value;
+        if (value is string stringValue)
+        {
+            return stringValue;
         }
 
-        return ret;
+        return value is IEnumerable ? $"{LambdaExtensions.ElementCount(value)}" : value?.ToString() ?? "-";
     }
 }

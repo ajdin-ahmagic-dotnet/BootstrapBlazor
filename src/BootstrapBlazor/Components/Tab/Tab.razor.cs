@@ -26,6 +26,7 @@ public partial class Tab : IHandlerException
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
+        .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
         .Build();
@@ -125,6 +126,18 @@ public partial class Tab : IHandlerException
     public bool ShowExtendButtons { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示前后导航按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowNavigatorButtons { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示活动标签 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowActiveBar { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 点击 TabItem 时是否自动导航 默认为 false 不导航
     /// </summary>
     [Parameter]
@@ -212,6 +225,20 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页前置模板 默认 null
+    /// <para>在向前移动标签页按钮前</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? BeforeNavigatorTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页后置模板 默认 null
+    /// <para>在向后移动标签页按钮前</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AfterNavigatorTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 上一个标签图标
@@ -745,8 +772,24 @@ public partial class Tab : IHandlerException
         item.SetActive(true);
     }
 
+    /// <summary>
+    /// 设置 TabItem 禁用状态
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="disabled"></param>
+    public void SetDisabledItem(TabItem item, bool disabled)
+    {
+        item.SetDisabledWithoutRender(disabled);
+        StateHasChanged();
+    }
+
     private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
+        if (item.IsDisabled)
+        {
+            return;
+        }
+
         if (item.IsActive)
         {
             var content = _errorContent ?? item.ChildContent;

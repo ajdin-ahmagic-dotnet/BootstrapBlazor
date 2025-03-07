@@ -33,6 +33,10 @@ public sealed partial class Tabs
 
     private string TabItemText { get; set; } = "Test";
 
+    private bool Disabled { get; set; } = true;
+
+    private string DisableText { get; set; } = "Enable";
+
     private void SetPlacement(Placement placement)
     {
         BindPlacement = placement;
@@ -68,6 +72,13 @@ public sealed partial class Tabs
             var item = tabset.Items.Last();
             await tabset.RemoveTab(item);
         }
+    }
+
+    private void OnToggleDisable()
+    {
+        Disabled = !Disabled;
+
+        DisableText = Disabled ? "Enable" : "Disable";
     }
 
     /// <summary>
@@ -216,6 +227,22 @@ public sealed partial class Tabs
         },
         new()
         {
+            Name = "ShowExtendButtons",
+            Description = Localizer["TabAttrShowNavigatorButtons"].Value,
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowExtendButtons",
+            Description = Localizer["TabAttrShowActiveBar"].Value,
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ClickTabToNavigation",
             Description = Localizer["TabAtt6ClickTabToNavigation"].Value,
             Type = "boolean",
@@ -358,7 +385,6 @@ public sealed partial class Tabs
     /// <returns></returns>
     private MethodItem[] GetMethods() =>
     [
-
         new MethodItem()
         {
             Name = "AddTab",

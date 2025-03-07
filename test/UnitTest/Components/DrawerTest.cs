@@ -161,6 +161,52 @@ public class DrawerTest : BootstrapBlazorTestBase
         cut.Contains("--bb-drawer-position: absolute;");
     }
 
+    [Fact]
+    public void ZIndex_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.ZIndex, 1055);
+        });
+        cut.Contains("--bb-drawer-zindex: 1055;");
+    }
+
+    [Fact]
+    public void IsKeyboard_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsKeyboard, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("data-bb-keyboard=\"true\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsKeyboard, false);
+        });
+        cut.DoesNotContain("data-bb-keyboard=\"true\"");
+    }
+
+    [Fact]
+    public void BodyScroll_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.BodyScroll, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("data-bb-scroll=\"true\"");
+    }
+
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]

@@ -21,7 +21,8 @@
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
     "DrawingSummary": "Drawing",
-    "AdminSummary": "Admin"
+    "AdminSummary": "Admin",
+    "OnlineSheet": "UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",
@@ -83,7 +84,7 @@
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
     "TablesFixedColHeaderTitle": "Fixed column header and column footer",
     "TablesFixedColHeaderIntro": "Set the <code>Fixed</code> attribute to fix the header",
-    "TablesFixedColHeaderDescription": "In this example, set <code>Name</code> <code>DateTime</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
+    "TablesFixedColHeaderDescription": "In this example, set  <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
     "TablesFixedColTableHeaderTitle": "Fixed headers and columns",
     "TablesFixedColTableHeaderIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>Fixed</code> to fix the column",
     "TablesFixedExtendButtonsColumnTitle": "Fixed button action column",
@@ -152,7 +153,7 @@
     "ToastsHeaderTemplateIntro": "set <code>HeaderTemplate</code> custom the header content",
     "ToastsAttrCategory": "Toast type",
     "ToastsAttrTitle": "Toast title",
-    "ToastsAttrContent": "Toast content",
+    "ToastsAttrContent": "Toast content support HTML",
     "ToastsAttrDelay": "Auto hide interval",
     "ToastsAttrIsAutoHide": "Whether to automatically hide",
     "ToastsAttrIsHtml": "Whether the content contains Html code",
@@ -389,7 +390,7 @@
     "ModalsDialogResizeIntro": "Resize the modal box by setting the <code>ShowResize</code> property",
     "ModalsSmallPopup": "small popup",
     "ModalsBigPopup": "big popup",
-    "ModalsOversizedPopup": "Oversized pop-up window",
+    "ModalsOverSizedPopup": "OverSized pop-up window",
     "ModalsSuperLargePopup": "super large pop-up window",
     "ModalsFullScreenSizeTitle": "Full screen popup",
     "ModalsFullScreenSizeIntro": "Just set the property <code>FullScreenSize</code>",
@@ -892,6 +893,10 @@
     "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop",
     "DrawerServiceTitle": "Drawer Service",
     "DrawerServiceIntro": "Open the drawer pop-up window by calling the <code>DrawerService</code> service",
+    "IsKeyboardTitle": "ESC",
+    "IsKeyboardIntro": "By default, the component uses the <kbd>ESC</kbd> key to close the drawer popup. You can enable this function by <code>IsKeyboard=\"true\"</code>",
+    "BodyScrollTitle": "Body Scroll",
+    "BodyScrollIntro": "By setting <code>BodyScroll</code>, you can control whether scrolling is allowed when the drawer pop-up window is displayed. <code>Body</code> is false by default, scrolling is not allowed",
     "Open": "click me to open",
     "Content": "The layout, components, etc. in the drawer are fully customizable",
     "Close": "close the drawer",
@@ -1025,9 +1030,14 @@
     "LabelsValidateForm2Description1": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
     "LabelsValidateForm2Description2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "LabelsValidateForm2Description3": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>",
-    "LabelsValidateForm2Description4": "<b>Tooltip</b>",
     "ValidateFormAlignRight": "<b>Right</b><div><code>form-inline-end</code> set the label alignment is right</div>",
-    "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>"
+    "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>",
+    "LabelsRowLabelWidthTitle": "Style setting label width",
+    "LabelsRowLabelWidthIntro": "Control label width by setting style variable <code>--bb-row-label-width</code>",
+    "LabelsWidthTitle": "Parameter setting label width",
+    "LabelsWidthIntro": "Control the label width by setting the variable <code>LabelWidth</code>",
+    "LabelsWidthDescription": "The components <code>ValidateForm</code> <code>EditorForm</code> <code>BootstrapLabelSetting</code> <code>ValidateForm</code> can set the label width value. The components use the <b>proximity principle</b> to determine the final value",
+    "LabelsWidthCode1": "As shown in the code above, the final value is <b>180</b> according to the principle of proximity"
   },
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "Install",
@@ -1423,6 +1433,9 @@
     "Layouts_IsFixedFooter_Description": "Whether to fix the Footer component",
     "Layouts_IsFixedHeader_Description": "Whether to fix the Header component",
     "Layouts_ShowCollapseBar_Description": "Whether to show contraction and expansion Bar",
+    "Layouts_ShowSplitebar_Description": "Whether to display the left and right split bar",
+    "Layouts_SidebarMinWidth_Description": "Minimum sidebar width",
+    "Layouts_SidebarMaxWidth_Description": "Maximum sidebar width",
     "Layouts_ShowFooter_Description": "Whether to show Footer template",
     "Layouts_ShowGotoTop_Description": "Whether to display the back to top button",
     "Layouts_UseTabSet_Description": "Whether to open multi-label mode",
@@ -1759,6 +1772,8 @@
     "SplitIntro": "You can create a split drop-down menu with tags similar to a single button drop-down menu, and add ShowSplit='true' when you use a split component. Insert this symbol as a drop-down The options are handled at appropriate intervals (distance).",
     "SizeTitle": "Size definition",
     "SizeIntro": "The drop-down menu has a variety of size specifications to choose from <code>Size</code> attributes, including preset and split button drop-down menus.",
+    "IsAsyncTitle": "Asynchronous request button",
+    "IsAsyncIntro": "By setting whether the <code>isAsync</code> property button is <b>asynchronous request button by setting whether the is</b> <code>false</code> by default",
     "DirectionTitle": "Expanding direction",
     "DirectionIntro": "Add the style of <code>Direction='Direction.Dropup'</code> to make the drop-down menu expand upward.",
     "AlignmentTitle": "Menu alignment",
@@ -1773,6 +1788,8 @@
     "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</b> make the ButtonText to const",
     "FixedButtonTextTitle": "Set the fixed button text",
     "FixedButtonTextIntro": "Set the <code>FixedButtonText</code> value for fixed button text",
+    "ButtonTemplateTitle": "Button Template",
+    "ButtonTemplateIntro": "You can customize the displayed content by setting <code>ButtonTemlate</code>",
     "AttributeValue": "Currently selected value",
     "AttributeClass": "Style",
     "AttributeColor": "Color",
@@ -1782,11 +1799,14 @@
     "AttributeMenuItem": "Menu item rendering label",
     "AttributeResponsive": "Menu alignment",
     "AttributeShowSplit": "Split button drop-down menu",
+    "AttributeIsAsync": "whether it is an asynchronous button",
     "AttributeSize": "Size",
     "AttributeTagName": "Label",
     "AttributeButtonTemplate": "The template of button",
     "AttributeItemTemplate": "The template of item",
     "AttributeItemsTemplate": "The template of items",
+    "EventDesc1": "This event is triggered when the button is clicked",
+    "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
     "EventOnSelectedItemChanged": "Triggered when the value of the drop-down box changes",
     "FixedButtonText": "The text of fixed button",
     "Item1": "Melbourne",
@@ -1802,7 +1822,9 @@
     "DropdownCascadeItem5": "Chaoyang",
     "DropdownCascadeItem6": "Haidian",
     "DropdownCascadeItem7": "Jingan",
-    "DropdownCascadeItem8": "Huangpu"
+    "DropdownCascadeItem8": "Huangpu",
+    "DropdownItemTemplateTitle": "Item Template",
+    "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered."
   },
   "BootstrapBlazor.Server.Components.Samples.GoTops": {
     "Title": "GoTop",
@@ -2067,6 +2089,8 @@
     "TabAtt3IsOnlyRenderActiveTab": "Whether to render only Active labels",
     "TabAtt4ShowClose": "Whether to display the close button",
     "TabAtt5ShowExtendButtons": "Whether to display the extension button",
+    "TabAttShowNavigatorButtons": "Whether to display the previous and next navigation buttons",
+    "TabAttShowActiveBar": "Whether to display active bar",
     "TabAtt6ClickTabToNavigation": "Whether to navigate when you click on the title",
     "TabAtt7Placement": "Set the label position",
     "TabAtt8Height": "Set the label height",
@@ -2098,7 +2122,9 @@
     "AttributeNotAuthorized": "The template for NotAuthorized",
     "AttributeNotFound": "The template for NotFound",
     "AttributeExcludeUrls": "Exclude address support for wildcards",
-    "AttributeButtonTemplate": "The template for Buttons"
+    "AttributeButtonTemplate": "The template for Buttons",
+    "TabsDisabledTitle": "Disabled",
+    "TabsDisabledIntro": "Disable the current <code>TabItem</code> by setting <code>IsDisabled=\"true\"</code> to prohibit click, drag, close etc."
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
@@ -2216,7 +2242,7 @@
     "Block8Title": "Secondary encapsulation button",
     "Block8Intro": "The button display text is set by setting the <code>Text</code> property of the <code>winButton</code> component, and the click button is the text on the right that shows the clicked button",
     "Block9Title": "Asynchronous request button",
-    "Block9Intro": "By setting whether the <code>isAsync</code> property button is <b>asynchronous request button by setting whether the is</b> <code>false</code> by default",
+    "Block9Intro": "By setting whether the <code>isAsync</code> property button is <b>asynchronous request button by setting whether the is</b> <code>false</code> by default. <b>Note</b> This will only take effect when <code>ShowSplit=\"true\"</code> is set",
     "ButtonAsyncDescription": "When the button is an asynchronous request button, the button is changed to disabled, and the <code>loading</code> small icon is displayed, returning to normal after the asynchronous request ends, in this case, after clicking the <b>asynchronous button</b>, the request load animation is displayed and returns to normal after 5 seconds",
     "EventDesc1": "This event is triggered when the button is clicked",
     "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
@@ -2363,6 +2389,8 @@
     "ValidateFormTitle": "Used in forms",
     "ValidateFormIntro": "When you use <code>Checkbox</code> in a form, the display label text is placed in front of the component",
     "ValidateFormDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component <a href='input'>[portal]</a>",
+    "ItemTemplateTitle": "ItemTemplate",
+    "ItemTemplateIntro": "Set <code>ItemTemplate</code> for customer the item UI",
     "OnBeforeStateChangedTitle": "OnBeforeStateChanged",
     "OnBeforeStateChangedIntro": "By setting the <code>OnBeforeStateChanged</code> callback method, you can cancel the state change logic",
     "OnBeforeStateChangedText": "Confirm",
@@ -2399,6 +2427,8 @@
     "ShowLabelTitle": "Bidirectional binding collection",
     "ShowLabelIntro": "Binding values are collections",
     "ShowLabelTip": "<code>TValue</code> is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
+    "ItemTemplateTitle": "ItemTemplate",
+    "ItemTemplateIntro": "Set <code>ItemTemplate</code> for customer the item UI",
     "EnumTitle": "Bidirectional binding enumeration",
     "EnumIntro": "The binding value is enumeration",
     "EnumTip": "When <code>CheckboxList</code> binds an enumeration set, <code>Items</code> does not need to be specified, <code>Items</code> will be automatically set to all values in the enumeration. If you need to bind some values, please provide the enumeration set <code>Items</code>",
@@ -2931,6 +2961,8 @@
     "MultiSelectSearchTitle": "Search function",
     "MultiSelectSearchIntro": "Turn on search by setting the <code>ShowSearch</code> value",
     "MultiSelectSearchDescription": "In this example, the search callback delegate method is set <code>onSearchTextChanged</code> to customize search results if the display text is used internally to make a fuzzy match when not set",
+    "MultiSelectFlagsEnumTitle": "Flags Enum",
+    "MultiSelectFlagsEnumIntro": "When the binding value is an <code>Enum</code> data type, if it has a <code>Flags</code> tag, multiple selection mode is automatically supported",
     "MultiSelectGroupTitle": "Grouping",
     "MultiSelectGroupIntro": "Alternatives are presented in groups",
     "MultiSelectDisableTitle": "Disable the feature",
@@ -3037,7 +3069,10 @@
     "RadiosAdd1": "Beijing",
     "RadiosAdd2": "Shanghai",
     "RadioListGenericTitle": "Generic List",
-    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
+    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>",
+    "RadiosAutoSelectFirstWhenValueIsNullTitle": "AutoSelectFirst",
+    "RadiosAutoSelectFirstWhenValueIsNullIntro": "The selection of <code>RadioList</code> candidates can be controlled by setting the <code>AutoSelectFirstWhenValueIsNull</code> parameter. The default value of the parameter is <b>true</b>, which means that if the current value of the component is inconsistent with the value in the candidate, the first candidate is automatically selected. If it is set to <b>false</b>, all candidates will be unselected.",
+    "RadiosAutoSelectFirstWhenValueIsNull": "Whether to select the first candidate by default when the value is not null"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",
@@ -3115,6 +3150,7 @@
     "SelectsEnumDescription2": "Setting <code>PalceHolder</code> is not valid when the binding value is an enumerated type",
     "SelectsEnumSelectText1": "Can be empty",
     "SelectsEnumSelectText2": "Not empty",
+    "SelectsEnumSelectText3": "Using enum integer values ​​as Items",
     "SelectsNullableTitle": "The binding can be an empty type",
     "SelectsNullableIntro": "<code>an example of the Select</code> component binding <code>int?</code> type",
     "SelectsNullableDescription": "When the first option is selected, the binding value <code>SelectIntItem</code> to <code>null</code>",
@@ -3246,7 +3282,7 @@
     "TextAreaBindWayBindValue": "The binding value",
     "TextAreaReadOnlyTitle": "Readonly",
     "TextAreaReadOnlyIntro": "When you set the <code>readonly</code> property, the component prohibits input",
-    "TextAreaHeightTitle": "height",
+    "TextAreaHeightTitle": "Height",
     "TextAreaHeightIntro": "When you set the <code>rows</code> property, component initialization displays a fixed row height",
     "TextAreaBindWayTitle": "Two-way binding",
     "TextAreaBindWayIntro": "Binding variables within a component, data is automatically synchronized",
@@ -3261,7 +3297,14 @@
     "TextAreaScrollToBottom": "Scroll to bottom",
     "TextAreaScrollToTop": "Scroll to top",
     "TextAreaScrollTo": "Scroll +20",
-    "TextAreaAutoScroll": "Automatic scrolling"
+    "TextAreaAutoScroll": "Automatic scrolling",
+    "TextAreaUseShiftEnterTitle": "Shift Enter",
+    "TextAreaUseShiftEnterIntro": "By setting <code>UseShiftEnter=\"true\"</code> you can start using <kbd>Shift</kbd> + <kbd>Enter</kbd> for line breaks, which is suitable for dialog applications.",
+    "TextAreaUseShiftEnterPlaceHolder": "Please enter some text, Enter sends Shift + Enter line break",
+    "TextAreaUseShiftEnter": "Whether to use Shift + Enter instead of the original Enter key behavior",
+    "TextAreaKeyEventTitle": "Enter/Esc KeyEvent",
+    "TextAreaKeyEventIntro": "Start the <kbd>Enter</kbd> <kbd>Esc</kbd> key callback event by setting <code>OnEnterAsync</code> <code>OnEscAsync</code>",
+    "TextAreaKeyEventPlaceHolder": "Press Enter/Esc key to trigger the event"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "On",
@@ -3431,7 +3474,10 @@
     "UploadsSaveFile": "Save the file",
     "UploadsSaveFileMsg": "The current mode is WebAssembly, call Webapi mode to save files to the server side or database",
     "UploadsRemoveMsg": "The removal was successful",
-    "UploadsIconTemplate": "The template of file icon"
+    "UploadsIconTemplate": "The template of file icon",
+    "DropUploadTitle": "Drop to upload",
+    "DropUploadIntro": "Drag and drop files into the specified area to upload",
+    "DropUploadFooterText": "file size less than 5Mb"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
     "ChangeButtonText": "Change",
@@ -3517,7 +3563,8 @@
     "ValidateFormIValidateCollectionIntro": "The <code>IValidateCollection</code> interface provides more flexible custom <code>linked</code> validation, which is very suitable for very complex data validation, such as combining multiple attributes for validation.",
     "ValidateFormIValidateCollectionDescription": "This example uses <code>IValidateCollection</code> to verify that <code>Telephone 1</code> and <code>Telephone 2</code> cannot be the same. If any cell is changed so that the phone numbers are the same, both text boxes will prompt.",
     "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
-    "ValidateMetadataTypeIntro": "The model uses <code>[MetadataType(typeof(MockModelMetadataType))]</code> to specify the metadata type <code>MockModelMetadataType</code> for model validation. If the specified model inherits the <code>IValidateCollection</code> interface, its <code>Validate</code> method is called to perform data compliance checks."
+    "ValidateMetadataTypeIntro": "The model uses <code>[MetadataType(typeof(MockModelMetadataType))]</code> to specify the metadata type <code>MockModelMetadataType</code> for model validation. If the specified model inherits the <code>IValidateCollection</code> interface, its <code>Validate</code> method is called to perform data compliance checks.",
+    "LabelWidth": "Label width"
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
@@ -4100,7 +4147,7 @@
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating",
-    "LocatorsProviderDesc": "The component library has two built-in geolocation locators: <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
+    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",
@@ -4187,8 +4234,6 @@
     "SearchesNormalTitle": "Basic usage",
     "SearchesNormalIntro": "Enter some of the data to search",
     "SearchesNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
-    "SearchesClearValueTitle": "Values are automatically emptied after searching",
-    "SearchesClearValueIntro": "Turn on the automatic emptying of the search box after search by setting <code>IsAutoClearAfterSearch=&quot;true&quot;</code>",
     "SearchesDisplayButtonTitle": "The Empty button is displayed",
     "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
     "SearchesKeyboardsTitle": "Keyboard input instant search",
@@ -4209,7 +4254,23 @@
     "SearchesOnSearch": "Call back this delegate when you click Search",
     "SearchesOnClear": "Click Recall this order when emptying",
     "SearchesItemTemplateTitle": "Item Template",
-    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method"
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method",
+    "SearchesShowPrefixIconTitle": "ShowPrefixIcon",
+    "SearchesShowPrefixIconIntro": "Control whether to show the prefix icon by setting the <code>ShowPrefixIcon</code> parameter",
+    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template.",
+    "SearchesButtonTemplateTitle": "Button Template",
+    "SearchesButtonTemplateIntro": "Customize the buttons displayed by the component by setting <code>ButtonTemplate</code>",
+    "SearchesButtonTemplateDesc": "Customize the buttons displayed in front of the component by setting <code>PrefixButtonTemplate</code>",
+    "SearchesButtonTemplateDesc2": "In a custom template, you can call the <code>OnClear</code> <code>OnSearch</code> method inside the <code>Search</code> component with the context.",
+    "SearchesIsClearableTitle": "IsClearable",
+    "SearchesIsClearableIntro": "Display the clear icon by setting <code>IsClearable=\"true\"</code>",
+    "SearchesIsClearable": "Whether to display the clear icon",
+    "SearchesClearIcon": "Clear Icon",
+    "SearchesPrefixButtonTemplate": "Prefix button template",
+    "SearchesButtonTemplate": "Button template",
+    "SearchesIconTemplateTitle": "Icon Template",
+    "SearchesIconTemplateIntro": "Customize the icon displayed by the component by setting <code>IconTemplate</code>",
+    "SearchesIconTemplateDesc": "The search component context <code>SearchContext&lt;string&gt;</code> provides the <code>OnClear</code> <code>OnSearch</code> methods within the component"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",
@@ -4715,6 +4776,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
+    "Html2Image": "IHtml2Image",
     "Html2Pdf": "IHtml2Pdf",
     "Mask": "MaskService",
     "ContextMenu": "ContextMenu",
@@ -4792,7 +4854,11 @@
     "RDKit": "RDKit",
     "SmilesDrawer": "SmilesDrawer",
     "Affix": "Affix",
-    "Watermark": "Watermark"
+    "Watermark": "Watermark",
+    "OctIcon": "Oct Icons",
+    "UniverIcons": "Univer Icons",
+    "Typed": "Typed",
+    "UniverSheet": "UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5944,7 +6010,9 @@
     "CustomCssIntro": "Set <code>class</code> parameter set the style for the file icon component",
     "ExtensionAttr": "The extension of file",
     "IconColorAttr": "The backgound color for badge of extension",
-    "BackgroundTemplateAttr": "The template for custom the backgroup file"
+    "BackgroundTemplateAttr": "The template for custom the backgroup file",
+    "SizeTitle": "Size",
+    "SizeIntro": "Set the icon size by setting <code>Size</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "Title": "PDF Reader",
@@ -6408,7 +6476,7 @@
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",
     "BasicTitle": "Basic",
-    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "BasicIntro": "Lets you arrange its subcomponents in a horizontal or vertical stack",
     "RowMode": "Row",
     "ColumnMode": "Column",
     "Mode": "mode",
@@ -6661,7 +6729,7 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
     "ElementIconTitle": "Element-plus Icons",
     "ElementIconDescription": "Free, high quality, open source icon library",
     "CopiedTooltipText": "Copied",
@@ -6687,7 +6755,7 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "CopiedTooltipText": "Copied",
@@ -6696,7 +6764,7 @@
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
     "AntDesignIconDescription": "Semantic vector graphics.",
     "CopiedTooltipText": "Copied",
@@ -6704,6 +6772,24 @@
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
+    "OctIconTitle": "Oct Svg Icon Lib",
+    "OctIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[portal]</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
+    "UniverIconTitle": "Univer Svg Icon Lib",
+    "UniverIconDescription": "Icons used by Univer",
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
@@ -6906,10 +6992,45 @@
     "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
     "CacheListKey": "Key",
     "CacheListValue": "Value",
+    "CacheListExpiration": "Expiration",
     "CacheListAction": "Action",
     "CacheListRefresh": "Refresh",
     "CacheListDelete": "Delete",
     "CacheListDeleteAll": "Clear",
     "CacheListCount": "Total {0} Entry"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Typeds": {
+    "TypedTitle": "Typed",
+    "TypedIntro": "Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.",
+    "NormalTitle": "Text",
+    "NormalIntro": "Set the text to be displayed by setting the <code>Text</code> parameter",
+    "TypedOptionsTitle": "TypedOptions",
+    "TypedOptionsIntro": "Customize typing speed, delay, and other settings by setting the properties of the <code>TypedOptions</code> parameter"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Html2Images": {
+    "Html2ImageTitle": "Html to Image",
+    "Html2ImageIntro": "Convert any area web page into an image service",
+    "Html2ImageElementTitle": "ToPng",
+    "Html2ImageElementIntro": "Get the <b>base64-encoded</b> image by calling the <code>GetDataAsync</code> method",
+    "Html2ImageButtonText": "Image",
+    "Html2ImageDesc": "Since the underlying library is <a href=\"https://github.com/bubkoo/html-to-image?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">html-to-image</a>, if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/bubkoo/html-to-image/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UniverSheets": {
+    "UniverSheetTitle": "UniverSheet",
+    "UniverSheetIntro": "Encapsulates the core spreadsheet component of the open source office suite ​Univer​, providing a high-performance, scalable online spreadsheet solution",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Set your own plugins by setting the <code>Plugins</code> parameter",
+    "NormalDesc1": "Push data to the spreadsheet by calling the instance method <code>PushDataAsync</code>. Click the <b>Save Data</b> button to get the serialized data of the table data",
+    "NormalDesc2": "Click the <b>Push Data</b> button to push data to the table, and click the first icon on the <b>Toolbar</b> to get data from the server.",
+    "PushButtonText": "Push",
+    "SaveButtonText": "Save",
+    "ToastOnReadyTitle": "Notification",
+    "ToastOnReadyContent": "The sheet is ready for push data.",
+    "PluginTitle": "Plugins",
+    "PluginIntro": "Set custom plugins by setting the <code>Plugins</code> parameter"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+    "ToastOnReadyTitle": "Collaboration Notification",
+    "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content"
   }
 }

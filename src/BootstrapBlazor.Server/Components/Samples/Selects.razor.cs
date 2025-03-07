@@ -43,11 +43,20 @@ public sealed partial class Selects
 
     private bool _showSearch;
 
+    private bool _showPopoverSearch = true;
+
     private bool _isShowSearchClearable;
 
     private bool _isClearable;
 
     private string? _fooName;
+
+    private List<SelectedItem> _enumValueDemoItems = [
+        new("0", "Primary"),
+        new("1", "Middle")
+    ];
+
+    private EnumEducation _enumValueDemo = EnumEducation.Primary;
 
     /// <summary>
     /// <inheritdoc/>
@@ -67,7 +76,7 @@ public sealed partial class Selects
         var items = Foos;
         if (!string.IsNullOrEmpty(option.SearchText))
         {
-            items = Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            items = [.. Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase))];
         }
         return new QueryData<SelectedItem>
         {

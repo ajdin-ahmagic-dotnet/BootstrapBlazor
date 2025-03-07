@@ -237,6 +237,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["Labels"],
                     Url = "label"
                 },
@@ -316,7 +317,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Cascader"],
                     Url = "cascader"
                 },
@@ -405,7 +405,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["MultiSelect"],
                     Url = "multi-select"
                 },
@@ -431,14 +430,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Match = NavLinkMatch.All,
                     Text = Localizer["Select"],
                     Url = "select"
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["SelectObject"],
                     Url = "select-object"
                 },
@@ -509,7 +506,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Affix"],
                     Url = "affix"
                 },
@@ -705,7 +701,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["RDKit"],
                     Url = "rdkit"
                 },
@@ -721,7 +716,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SmilesDrawer"],
                     Url = "smiles-drawer"
                 },
@@ -767,6 +761,18 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Typed"],
+                    Url = "typed"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["UniverSheet"],
+                    Url = "univer-sheet"
+                },
+                new()
+                {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
                 },
@@ -777,7 +783,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Watermark"],
                     Url = "watermark"
                 }
@@ -964,7 +969,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["TableLookup"],
                     Url = "table/lookup"
                 },
@@ -1153,6 +1157,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DriverJs"],
+                    Url = "driver-js"
+                },
+                new()
+                {
                     Text = Localizer["EditDialog"],
                     Url = "edit-dialog"
                 },
@@ -1160,11 +1169,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["FlipClock"],
                     Url = "flip-clock"
-                },
-                new()
-                {
-                    Text = Localizer["DriverJs"],
-                    Url = "driver-js"
                 },
                 new()
                 {
@@ -1483,6 +1487,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Html2Image"],
+                    Url = "html2image"
+                },
+                new()
+                {
                     Text = Localizer["Html2Pdf"],
                     Url = "html2pdf"
                 },
@@ -1568,6 +1578,17 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["IconPark"],
                     Url = "icon-park"
+                },
+                new()
+                {
+                    Text = Localizer["OctIcon"],
+                    Url = "oct-icon"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["UniverIcon"],
+                    Url = "univer-icon"
                 }
             };
             AddBadge(item);

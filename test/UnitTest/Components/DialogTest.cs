@@ -58,13 +58,19 @@ public class DialogTest : BootstrapBlazorTestBase
             ShowExportPdfButton = true,
             ShowExportPdfButtonInHeader = true,
             ExportPdfButtonOptions = new(),
+            IsFade = false,
             OnCloseAsync = () =>
             {
                 closed = true;
                 return Task.CompletedTask;
             }
         }));
-        Assert.Contains("<svg", cut.Markup);
+
+        // 由于设置了 IsFade=false Modal 不应该渲染 fade 样式
+        Assert.DoesNotContain("modal fade", modal.Markup);
+
+        // 由于设置了 ShowMaximizeButton 导致 ShowResize 参数失效
+        Assert.DoesNotContain("<svg", cut.Markup);
         Assert.Contains("data-bs-backdrop=\"static\"", cut.Markup);
 
         // 全屏按钮

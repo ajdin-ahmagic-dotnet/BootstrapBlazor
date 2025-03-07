@@ -88,6 +88,7 @@
     "group-box": "GroupBoxes",
     "handwritten": "Handwrittens",
     "html-renderer": "HtmlRenderers",
+    "html2image": "Html2Images",
     "html2pdf": "Html2Pdfs",
     "label": "Labels",
     "layout": "Layouts",
@@ -224,7 +225,9 @@
     "rdkit": "Rdkits",
     "smiles-drawer": "SmilesDrawers",
     "affix": "Affixs",
-    "watermark": "Watermarks"
+    "watermark": "Watermarks",
+    "typed": "Typeds",
+    "univer-sheet": "UniverSheets"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
@@ -293,6 +296,7 @@
   "link": {
     "AntDesign": "http://www.antblazor.com/",
     "Pear Admin": "http://www.pearadmin.com/",
-    "SAPHP": "https://www.swiftadmin.net/"
+    "SAPHP": "https://www.swiftadmin.net/",
+    "Veterinary Hospital": "http://animal.jucun.zone/"
   }
 }

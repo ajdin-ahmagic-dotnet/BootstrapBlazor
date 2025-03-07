@@ -1,13 +1,9 @@
-﻿import { debounce, getHeight } from "../../modules/utility.js"
+﻿import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
-
-if (window.BootstrapBlazor === void 0) {
-    window.BootstrapBlazor = {};
-}
 
 export function init(id, invoke) {
     const el = document.getElementById(id)
@@ -37,6 +33,18 @@ export function init(id, invoke) {
         })
     }
 
+    ac.triggerBlur = () => {
+        el.classList.remove('show');
+        const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
+        if (triggerBlur) {
+            invoke.invokeMethodAsync('TriggerBlur');
+        }
+    }
+
+    EventHandler.on(menu, 'click', '.dropdown-item', e => {
+        ac.triggerBlur();
+    });
+
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
@@ -46,74 +54,69 @@ export function init(id, invoke) {
         }
     });
 
-    EventHandler.on(menu, 'click', e => {
-        el.classList.remove('show');
-        if (el.triggerEnter !== true) {
-            invoke.invokeMethodAsync('TriggerBlur');
-        }
-        delete el.triggerEnter;
-    });
-
     EventHandler.on(input, 'change', e => {
         invoke.invokeMethodAsync('TriggerChange', e.target.value);
     });
 
-    Input.composition(input, async v => {
-        const useInput = input.getAttribute('data-bb-input') !== 'false';
-        if (isPopover === false && useInput) {
+    let filterDuration = duration;
+    if (filterDuration === 0) {
+        filterDuration = 200;
+    }
+    const filterCallback = debounce(async v => {
+        await invoke.invokeMethodAsync('TriggerFilter', v);
+        el.classList.remove('is-loading');
+    }, filterDuration);
+
+    Input.composition(input, v => {
+        if (isPopover === false) {
             el.classList.add('show');
         }
 
         el.classList.add('is-loading');
-        await invoke.invokeMethodAsync('TriggerFilter', v);
-        el.classList.remove('is-loading');
+        filterCallback(v);
     });
 
-    if (window.BootstrapBlazor.AutoComplete === void 0) {
-        window.BootstrapBlazor.AutoComplete = {
-            hooked: false,
-            registerCloseDropdownHandler: function () {
-                if (this.hooked === false) {
-                    this.hooked = true;
+    ac.closePopover = e => {
+        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+            const ac = e.target.closest('.auto-complete');
+            if (ac === a) {
+                return;
+            }
 
-                    EventHandler.on(document, 'click', e => {
-                        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
-                            const ac = e.target.closest('.auto-complete');
-                            if (ac === a) {
-                                return;
-                            }
-
-                            const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
-                            if (el === null) {
-                                a.classList.remove('show');
-                            }
-                        });
-                    });
+            const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
+            if (el === null) {
+                const id = a.getAttribute('id');
+                const d = Data.get(id);
+                if (d) {
+                    d.triggerBlur();
                 }
             }
-        }
+        });
     }
-
-    window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
+    registerBootstrapBlazorModule('AutoComplete', id, () => {
+        EventHandler.on(document, 'click', ac.closePopover);
+    });
 }
 
 const handlerKeyup = (ac, e) => {
     const key = e.key;
-    const { el, input, menu } = ac;
+    const { el, input, invoke, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
             const current = menu.querySelector('.active');
             if (current !== null) {
-                el.triggerEnter = true;
                 current.click();
+                ac.triggerBlur();
             }
+            invoke.invokeMethodAsync('EnterCallback', input.value);
         }
     }
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
-            EventHandler.trigger(menu, 'click');
+            invoke.invokeMethodAsync('EscCallback');
+            ac.triggerBlur();
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
@@ -161,9 +164,15 @@ export function dispose(id) {
                 EventHandler.off(input, 'focus')
             }
         }
+        EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
         EventHandler.off(menu, 'click');
         Input.dispose(input);
+
+        const { AutoComplete } = window.BootstrapBlazor;
+        AutoComplete.dispose(id, () => {
+            EventHandler.off(document, 'click', ac.closePopover);
+        });
     }
 }
 

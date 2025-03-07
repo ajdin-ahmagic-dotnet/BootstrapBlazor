@@ -61,6 +61,9 @@ public static class ServiceCollectionSharedExtensions
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
+        // 增加 Html2Image 导出服务
+        services.AddBootstrapBlazorHtml2ImageService();
+
         // 增加 WinBox 弹窗服务
         services.AddBootstrapBlazorWinBoxService();
 
@@ -73,20 +76,17 @@ public static class ServiceCollectionSharedExtensions
             options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
         });
 
-        // 增加 MaterialDesign 图标主题
-        services.ConfigureMaterialDesignIconTheme();
-
-        // 增加 Bootstrap 图标主题
-        services.ConfigureBootstrapIconTheme();
-
-        // 增加 FontAwesome 图标主题
-        services.ConfigureIconThemeOptions();
-
         // 增加 BootstrapBlazor 假日服务
         services.AddBootstrapHolidayService();
 
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExportService();
+
+        // 增加离线 IP 定位服务
+        services.AddBootstrapBlazorIP2RegionfService();
+
+        // 增加 JuHe 定位服务
+        services.AddBootstrapBlazorJuHeIpLocatorService();
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码

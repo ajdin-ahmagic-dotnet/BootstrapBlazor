@@ -13,6 +13,24 @@ namespace BootstrapBlazor.Components;
 public partial class Search<TValue>
 {
     /// <summary>
+    /// 获得/设置 图标模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SearchContext<TValue>>? IconTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示清空小按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清空图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示清除按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -35,6 +53,12 @@ public partial class Search<TValue>
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// 获得/设置 是否显示搜索按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 搜索按钮颜色
@@ -62,9 +86,41 @@ public partial class Search<TValue>
     public string? SearchButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 按钮模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SearchContext<TValue>>? ButtonTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前置按钮模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SearchContext<TValue>>? PrefixButtonTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示前缀图标 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowPrefixIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前缀图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? PrefixIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前缀图标模板 默认为 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SearchContext<TValue>>? PrefixIconTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it")]
+    [ExcludeFromCodeCoverage]
     public bool IsAutoClearAfterSearch { get; set; }
 
     /// <summary>
@@ -111,7 +167,19 @@ public partial class Search<TValue>
     /// 获得/设置 UI 呈现数据集合
     /// </summary>
     [NotNull]
-    private List<TValue>? FilterItems { get; set; }
+    private List<TValue>? _filterItems = null;
+
+    private SearchContext<TValue> _context = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _context = new SearchContext<TValue>(this, OnSearchClick, OnClearClick);
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -120,13 +188,21 @@ public partial class Search<TValue>
     {
         base.OnParametersSet();
 
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+        PrefixIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
+
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
         NoDataTip ??= Localizer[nameof(NoDataTip)];
-        FilterItems ??= [];
+        _filterItems ??= [];
+
+        if (Debounce == 0)
+        {
+            Debounce = 200;
+        }
     }
 
     private string _displayText = "";
@@ -142,13 +218,8 @@ public partial class Search<TValue>
             await Task.Yield();
 
             var items = await OnSearch(_displayText);
-            FilterItems = items.ToList();
+            _filterItems = items.ToList();
             ButtonIcon = SearchButtonIcon;
-            if (IsAutoClearAfterSearch)
-            {
-                _displayText = "";
-            }
-
             if (IsTriggerSearchByInput == false)
             {
                 await InvokeVoidAsync("showList", Id);
@@ -168,7 +239,7 @@ public partial class Search<TValue>
             await OnClear(_displayText);
         }
         _displayText = "";
-        FilterItems = [];
+        _filterItems = [];
     }
 
     private string? GetDisplayText(TValue item)
@@ -196,11 +267,18 @@ public partial class Search<TValue>
     }
 
     /// <summary>
+    /// TriggerFilter 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public override Task TriggerFilter(string val) => TriggerChange(val);
+
+    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public override async Task TriggerChange(string val)
     {
         _displayText = val;
 

@@ -141,6 +141,11 @@ public enum ComponentIcons
     UploadCancelIcon,
 
     /// <summary>
+    /// Upload 组件 UploadIcon 图标
+    /// </summary>
+    DropUploadIcon,
+
+    /// <summary>
     /// Cascader 组件 Icon 属性图标
     /// </summary>
     CascaderIcon,
@@ -404,6 +409,16 @@ public enum ComponentIcons
     /// PopConfirmButton 组件 ConfirmIcon 图标
     /// </summary>
     PopConfirmButtonConfirmIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件弹窗中 CloseButtonIcon 图标
+    /// </summary>
+    PopConfirmButtonContentCloseButtonIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件弹窗中 ConfirmButtonIcon 图标
+    /// </summary>
+    PopConfirmButtonContentConfirmButtonIcon,
 
     /// <summary>
     /// Rate 组件 StarIcon 图标

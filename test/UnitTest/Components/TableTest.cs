@@ -127,6 +127,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.IsAutoInitializeModelProperty, true);
                 pb.Add(a => a.Items, items);
                 if (bind)
                 {
@@ -1070,6 +1071,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var isFirstQuery = true;
         var isQuery = false;
+        var triggerByPagination = true;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -1082,6 +1084,7 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     isQuery = true;
                     isFirstQuery = option.IsFirstQuery;
+                    triggerByPagination = option.IsTriggerByPagination;
                     return Task.FromResult(new QueryData<Foo>()
                     {
                         Items = Array.Empty<Foo>(),
@@ -1105,6 +1108,7 @@ public class TableTest : BootstrapBlazorTestBase
         // 首次加载为 true
         Assert.True(isFirstQuery);
         Assert.False(isQuery);
+        Assert.True(triggerByPagination);
 
         // 二次查询
         var table = cut.FindComponent<Table<Foo>>();
@@ -1112,6 +1116,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         Assert.False(isFirstQuery);
         Assert.True(isQuery);
+        Assert.False(triggerByPagination);
     }
 
     [Fact]
@@ -5181,6 +5186,32 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Table_ComplexColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = new MockComplexFoo[]
+        {
+            new() { Name = "test1", Foo = Foo.Generate(localizer) }
+        };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<MockComplexFoo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.TableColumns, context => builder =>
+                {
+                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
+                    builder.AddAttribute(1, "FieldName", "Foo.Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(context, "Foo.Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains(items[0].Foo.Name!);
+    }
+
+    [Fact]
     public async Task SelectedRowsChanged_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -5508,49 +5539,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button[0].Click());
 
         // 取消按钮
-        var cancelButton = cut.Find(".form-footer .btn-secondary");
-        await cut.InvokeAsync(() => cancelButton.Click());
-        Assert.True(afterCancelSave);
-    }
-
-    [Fact]
-    public async Task OnAfterCancelSaveAsync_InCell()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var afterCancelSave = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.EditMode, EditMode.EditForm);
-                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
-                {
-                    afterCancelSave = true;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // test edit button
-        var button = cut.FindAll("tbody tr button");
+        button = cut.FindAll("tbody tr.is-editform button");
         await cut.InvokeAsync(() => button[0].Click());
-
-        // 取消按钮
-        button = cut.FindAll("tbody tr button");
-        await cut.InvokeAsync(() => button[1].Click());
         Assert.True(afterCancelSave);
     }
 
@@ -6199,6 +6189,22 @@ public class TableTest : BootstrapBlazorTestBase
 
         var delete = cut.FindComponent<TableToolbarPopConfirmButton<DynamicObject>>();
         await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+    }
+
+    [Fact]
+    public void TableColumn_SupportComplexProperty_Ok()
+    {
+        var data = new DataTable();
+        data.Columns.Add("Foo.Name", typeof(string));
+        data.Rows.Add("test01");
+        data.AcceptChanges();
+
+        var cut = Context.RenderComponent<Table<DynamicObject>>(pb =>
+        {
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.DynamicContext, new DataTableDynamicContext(data));
+        });
+        cut.Contains("test01");
     }
 
     [Fact]

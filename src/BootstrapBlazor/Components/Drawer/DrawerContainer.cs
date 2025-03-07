@@ -65,6 +65,8 @@ public class DrawerContainer : ComponentBase, IDisposable
         var parameters = new Dictionary<string, object>()
         {
             [nameof(Drawer.IsOpen)] = true,
+            [nameof(Drawer.IsKeyboard)] = option.IsKeyboard,
+            [nameof(Drawer.BodyScroll)] = option.BodyScroll,
             [nameof(Drawer.IsBackdrop)] = option.IsBackdrop,
             [nameof(Drawer.ShowBackdrop)] = option.ShowBackdrop,
             [nameof(Drawer.Placement)] = option.Placement,
@@ -78,6 +80,10 @@ public class DrawerContainer : ComponentBase, IDisposable
         if (!string.IsNullOrEmpty(option.Height))
         {
             parameters.Add(nameof(Drawer.Height), option.Height);
+        }
+        if (option.ZIndex.HasValue)
+        {
+            parameters.Add(nameof(Drawer.ZIndex), option.ZIndex);
         }
         var content = option.GetContent();
         if (content != null)
