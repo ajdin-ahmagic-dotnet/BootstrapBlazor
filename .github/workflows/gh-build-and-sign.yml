@@ -55,7 +55,7 @@ jobs:
       run: dotnet tool install --tool-path . --prerelease sign
     
     # Login to Azure using a ServicePrincipal configured to authenticate agaist a GitHub Action
-    - name: 'Az CLI login'
+    - name: 'Login Azure CLI login'
       uses: azure/login@v2
       with:
         allow-no-subscriptions: true
@@ -70,9 +70,10 @@ jobs:
         ./sign code azure-key-vault
         **/*.nupkg
         --base-directory "${{ github.workspace }}/BuildArtifacts"
-        --publisher-name "BootstrapBlazor"
+        --publisher-name "SC-BootstrapBlazor"
         --description "BootstrapBlazor"
         --description-url "https://github.com/dotnetcore/bootstrapblazor"
+        --azure-key-vault-managed-identity true
         --azure-key-vault-url "${{ secrets.KEY_VAULT_URL }}"
         --azure-key-vault-certificate "${{ secrets.KEY_VAULT_CERTIFICATE_ID }}"
     
