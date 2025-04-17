@@ -596,6 +596,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.RowHeight, 30f);
+            pb.Add(a => a.OverscanCount, 4);
             pb.Add(a => a.OnExpandNodeAsync, async item =>
             {
                 await Task.Delay(10);
@@ -1049,12 +1050,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("search-template");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsFixedSearch, true);
-        });
-        cut.Contains("is-fixed-search");
     }
 
     [Fact]
@@ -1177,6 +1172,53 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowLeft"));
         cut.Contains("node-icon visible fa-solid fa-caret-right");
+    }
+
+    [Fact]
+    public async Task ShowToolbar_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" },
+            new() { Text = "1010-01", Id = "1010-01", ParentId = "1010" },
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        var count = 0;
+        var edit = false;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowToolbarCallback, foo =>
+            {
+                count++;
+                return Task.FromResult(true);
+            });
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnUpdateCallbackAsync, (foo, text) =>
+            {
+                edit = true;
+                return Task.FromResult(true);
+            });
+        });
+
+        // 节点未展开只回调一次
+        Assert.Equal(1, count);
+
+        // 点击确定按钮
+        var button = cut.Find(".popover-body .btn-primary");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(edit);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ToolbarTemplate, foo => builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div class=\"test-toolbar-template\">foo.Text</div>"));
+            });
+        });
+        Assert.Contains("test-toolbar-template", cut.Markup);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class

@@ -13,13 +13,6 @@ namespace BootstrapBlazor.Components;
 public partial class AutoComplete
 {
     /// <summary>
-    /// Gets the component style
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("auto-complete")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
     /// Gets or sets the collection of matching data obtained by inputting a string
     /// </summary>
     [Parameter]
@@ -90,7 +83,7 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private RenderTemplate? _dropdown = default;
+    private RenderTemplate? _dropdown = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -100,6 +93,17 @@ public partial class AutoComplete
         base.OnInitialized();
 
         SkipRegisterEnterEscJSInvoke = true;
+
+        Items ??= [];
+
+        if (!string.IsNullOrEmpty(Value))
+        {
+            _filterItems = GetFilterItemsByValue(Value);
+            if (DisplayCount != null)
+            {
+                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+            }
+        }
     }
 
     /// <summary>
@@ -113,17 +117,7 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-
-        Items ??= [];
     }
-
-    private bool _render = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// Callback method when a candidate item is clicked
@@ -158,11 +152,7 @@ public partial class AutoComplete
         }
         else
         {
-            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = IsLikeMatch
-                ? Items.Where(s => s.Contains(val, comparison))
-                : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = [.. items];
+            _filterItems = GetFilterItemsByValue(val);
         }
 
         if (DisplayCount != null)
@@ -170,24 +160,16 @@ public partial class AutoComplete
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
 
-        await TriggerChange(val);
+        // only render the dropdown menu
+        _dropdown.Render();
     }
 
-    /// <summary>
-    /// TriggerChange method
-    /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public override Task TriggerChange(string val)
+    private List<string> GetFilterItemsByValue(string val)
     {
-        _render = false;
-        CurrentValue = val;
-        if (!ValueChanged.HasDelegate)
-        {
-            StateHasChanged();
-        }
-        _render = true;
-        _dropdown.Render();
-        return Task.CompletedTask;
+        var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        var items = IsLikeMatch
+            ? Items.Where(s => s.Contains(val, comparison))
+            : Items.Where(s => s.StartsWith(val, comparison));
+        return [.. items];
     }
 }

@@ -648,7 +648,7 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.SetValue(context.Model);
-            RowsCache = null;
+            _rowsCache = null;
             valid = true;
         }
         else
@@ -900,7 +900,14 @@ public partial class Table<TItem>
         };
         AppendOptions(editOption, changedType);
 
-        var option = new DrawerOption() { Class = "drawer-table-edit", Placement = Placement.Right, AllowResize = true, IsBackdrop = true, Width = "600px" };
+        var option = new DrawerOption()
+        {
+            Class = "drawer-table-edit",
+            Placement = Placement.Right,
+            AllowResize = true,
+            IsBackdrop = true,
+            Width = "600px"
+        };
         if (OnBeforeShowDrawer != null)
         {
             await OnBeforeShowDrawer(option);
@@ -1095,7 +1102,7 @@ public partial class Table<TItem>
 
     private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
     {
-        RowsCache = null;
+        _rowsCache = null;
         if (context != null)
         {
             var items = context.GetItems();
@@ -1146,11 +1153,18 @@ public partial class Table<TItem>
         }
     }
 
-    private ToastOption GetToastOption(string title) => new()
+    private ToastOption GetToastOption(string title)
     {
-        Title = title,
-        Delay = Options.CurrentValue.ToastDelay
-    };
+        var option = new ToastOption()
+        {
+            Title = title,
+        };
+        if (Options.CurrentValue.ToastDelay > 0)
+        {
+            option.Delay = Options.CurrentValue.ToastDelay;
+        }
+        return option;
+    }
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))

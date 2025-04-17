@@ -451,6 +451,11 @@ public enum ComponentIcons
     MultiSelectDropdownIcon,
 
     /// <summary>
+    /// MultiSelect 组件 CloseButtonIcon 图标
+    /// </summary>
+    MultiSelectCloseIcon,
+
+    /// <summary>
     /// MultiSelect 组件 ClearIcon 图标
     /// </summary>
     MultiSelectClearIcon,
@@ -701,6 +706,36 @@ public enum ComponentIcons
     TabCloseIcon,
 
     /// <summary>
+    /// Tab 组件 RefreshToolbarButtonIcon 属性图标
+    /// </summary>
+    TabRefreshButtonIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuRefreshIcon 属性图标
+    /// </summary>
+    TabContextMenuRefreshIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseOtherIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseOtherIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseAllIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseAllIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuFullScreenIcon 属性图标
+    /// </summary>
+    TabContextMenuFullScreenIcon,
+
+    /// <summary>
     /// Timer 组件 Icon 属性图标
     /// </summary>
     TimerIcon,
@@ -739,6 +774,11 @@ public enum ComponentIcons
     /// TreeView 组件 LoadingIcon 属性图标
     /// </summary>
     TreeViewLoadingIcon,
+
+    /// <summary>
+    /// TreeView 组件 ToolbarEditButton 属性图标
+    /// </summary>
+    TreeViewToolbarEditButton,
 
     /// <summary>
     /// TreeView 组件 NodeIcon 属性图标

@@ -10,6 +10,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class MultiSelects
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo tet, please download the source code if necessary
@@ -106,7 +110,20 @@ public partial class MultiSelects
 
     private List<SelectedItem> CascadingItems1 { get; set; } = [];
 
+    [NotNull]
+    private List<Foo>? Foos { get; set; }
+
+    private string? _virtualItemValue1;
+    private string? _virtualItemValue2;
+    private string? _virtualItemText1;
+    private string? _virtualItemText2;
+
+    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Id.ToString(), i.Name!)).ToList();
+
     private string? _editString;
+    private bool _isClearable = true;
+    private bool _showToolbar = true;
+    private bool _showSearch = true;
 
     private async Task<SelectedItem> OnEditCallback(string value)
     {
@@ -119,6 +136,21 @@ public partial class MultiSelects
             EditableItems.Add(item);
         }
         return item;
+    }
+
+    private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
+    {
+        await Task.Delay(200);
+        var items = Foos;
+        if (!string.IsNullOrEmpty(option.SearchText))
+        {
+            items = [.. Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase))];
+        }
+        return new QueryData<SelectedItem>
+        {
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Id.ToString(), i.Name!)),
+            TotalCount = items.Count
+        };
     }
 
     private SelectedItem[] GroupItems { get; } =
@@ -140,7 +172,7 @@ public partial class MultiSelects
     ];
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -181,6 +213,11 @@ public partial class MultiSelects
         LongItems = GenerateDataSource(LongDataSource);
 
         Items = GenerateDataSource(DataSource);
+        Foos = Foo.GenerateFoo(LocalizerFoo);
+        _virtualItemValue1 = $"{Foos[79].Id}, {Foos[78].Id}";
+        _virtualItemValue2 = $"{Foos[45].Id}, {Foos[46].Id}";
+        _virtualItemText1 = $"{Foos[79].Name}, {Foos[78].Name}";
+        _virtualItemText2 = $"{Foos[45].Name}, {Foos[46].Name}";
     }
 
     private static List<SelectedItem> GenerateItems() =>
@@ -196,7 +233,7 @@ public partial class MultiSelects
         new ("Lianyungang", "连云港")
     ];
 
-    private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => source.Select(i => new SelectedItem(i.Value, i.Text)).ToList();
+    private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => [.. source.Select(i => new SelectedItem(i.Value, i.Text))];
 
     private void AddItems()
     {
@@ -339,6 +376,14 @@ public partial class MultiSelects
         },
         new()
         {
+            Name = "ShowSearch",
+            Description = Localizer["MultiSelectsAttribute_ShowSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowToolbar",
             Description = Localizer["MultiSelectsAttribute_ShowToolbar"],
             Type = "bool",
@@ -432,6 +477,22 @@ public partial class MultiSelects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(MultiSelect<string>.IsVirtualize),
+            Description = Localizer["MultiSelectsAttribute_IsVirtualize"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(MultiSelect<string>.DefaultVirtualizeItemText),
+            Description = Localizer["MultiSelectsAttribute_DefaultVirtualizeItemText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

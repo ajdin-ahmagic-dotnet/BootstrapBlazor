@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
-
 namespace UnitTest.Components;
 
 public class AutoCompleteTest : BootstrapBlazorTestBase
@@ -18,6 +16,8 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsSelectAllTextOnEnter, true);
         });
         Assert.Contains("<div class=\"auto-complete\"", cut.Markup);
+        Assert.Contains("data-bb-trigger-delete=\"true\"", cut.Markup);
+
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
 
@@ -34,6 +34,23 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
         menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, menus.Count);
+    }
+
+    [Fact]
+    public void Value_Ok()
+    {
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+            pb.Add(a => a.Value, "test12");
+            pb.Add(a => a.DisplayCount, 2);
+        });
+        var menus = cut.FindAll(".dropdown-item");
+
+        // 由于 Value = test12
+        // 并且设置了 DisplayCount = 2
+        // 候选项只有 2 个
         Assert.Equal(2, menus.Count);
     }
 
@@ -200,7 +217,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ValidateForm_Ok()
+    public void ValidateForm_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -211,12 +228,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Items, items);
             });
         });
-
-        // Trigger js invoke
-        var comp = cut.FindComponent<AutoComplete>().Instance;
-        await cut.InvokeAsync(() => comp.TriggerChange("v"));
-
-        Assert.Equal("v", comp.Value);
+        Assert.Contains("form-label", cut.Markup);
     }
 
     [Fact]
@@ -312,7 +324,6 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<MockPopoverCompleteBase>();
         cut.Instance.TriggerFilter("test");
-        cut.Instance.TriggerChange("test");
     }
 
     class MockPopoverCompleteBase : PopoverCompleteBase<string>
@@ -320,11 +331,6 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         public override Task TriggerFilter(string val)
         {
             return base.TriggerFilter(val);
-        }
-
-        public override Task TriggerChange(string val)
-        {
-            return base.TriggerChange(val);
         }
     }
 }

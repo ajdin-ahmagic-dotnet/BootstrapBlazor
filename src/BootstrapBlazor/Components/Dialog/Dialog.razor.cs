@@ -27,7 +27,7 @@ public partial class Dialog : IDisposable
     private Dictionary<string, object>? _currentParameter;
     private bool _isKeyboard = false;
     private bool _isBackdrop = false;
-    private bool _isFade = true;
+    private bool? _isFade = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -55,7 +55,7 @@ public partial class Dialog : IDisposable
         }
     }
 
-    private Task Show(DialogOption option)
+    private async Task Show(DialogOption option)
     {
         _onShownAsync = async () =>
         {
@@ -158,8 +158,7 @@ public partial class Dialog : IDisposable
 
         // Add ModalDialog to the container
         DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop));
-        StateHasChanged();
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
     }
 
     private static RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>

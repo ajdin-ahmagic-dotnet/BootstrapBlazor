@@ -87,19 +87,6 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsClearableTitle"]"
-           Introduction="@Localizer["SelectsClearableIntro"]"
-           Name="IsClearable">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
-        </div>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["SelectsBindingSelectedItemTitle"]"
            Introduction="@Localizer["SelectsBindingSelectedItemIntro"]"
            Name="BindingSelectedItem">
@@ -329,7 +316,7 @@
            Introduction="@Localizer["SelectsShowSearchIntro"]"
            Name="ShowSearch">
     <section ignore>
-        <div class="row mb-3">
+        <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="IsClearable" />
@@ -338,12 +325,38 @@
             </div>
         </div>
     </section>
-    <div class="row g-3 mt-3">
+    <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <Select TValue="string" Items="Items" ShowSearch="true"
+                    IsClearable="_isShowSearchClearable">
+            </Select>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <Select TValue="string" Items="StringItems" ShowSearch="true"
+                    IsClearable="_isShowSearchClearable">
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsClearableTitle"]"
+           Introduction="@Localizer["SelectsClearableIntro"]"
+           Name="IsClearable">
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsClearableDesc"].Value)</p>
+    </section>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="ClearableItems" Value="ClearableModel.NullableName" ShowLabel="true" DisplayText="string?"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="Items" Value="ClearableModel.Name" ShowLabel="true" DisplayText="string"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="IntItems" Value="ClearableModel.NullableCount" ShowLabel="true" DisplayText="int?"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="IntItems" Value="ClearableModel.Count" ShowLabel="true" DisplayText="int"></Select>
         </div>
     </div>
 </DemoBlock>
@@ -412,27 +425,29 @@
 <DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
            Introduction="@Localizer["SelectsVirtualizeIntro"]"
            Name="IsVirtualize">
-    <section ignore>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</section>
-
-    <div class="row mb-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="ShowSearch" />
-                <Checkbox @bind-Value="@_showSearch" />
-            </BootstrapInputGroup>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
         </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="IsClearable" />
-                <Checkbox @bind-Value="@_isClearable" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
+    </section>
 
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
         <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1"
+                    ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
@@ -442,7 +457,8 @@
     <p class="code-label">2. 使用 Items 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
+                    ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>

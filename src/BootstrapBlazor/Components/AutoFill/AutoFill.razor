@@ -1,4 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits PopoverCompleteBase<TValue>
 
@@ -13,27 +14,67 @@
            data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString" data-bb-debounce="@DurationString"
            data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
            data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
-           value="@_displayText"
+           @bind="@_displayText"
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
-    <ul class="dropdown-menu">
-        @foreach (var item in Rows)
+    @if (GetClearable())
+    {
+        <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
+    }
+    <RenderTemplate @ref="_dropdown">
+        @RenderDropdown
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderDropdown =>
+    @<div class="dropdown-menu">
+        @if (IsVirtualize)
         {
-            <li @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
-                @if (ItemTemplate != null)
+            <div class="dropdown-menu-body dropdown-virtual">
+                @if (OnQueryAsync == null)
                 {
-                    @ItemTemplate(item)
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Rows" ChildContent="RenderRow">
+                    </Virtualize>
                 }
                 else
                 {
-                    <div>@GetDisplayText(item)</div>
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
+                                Placeholder="RenderPlaceholderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
+                    </Virtualize>
                 }
-            </li>
+            </div>
         }
-        @if (ShowNoDataTip && Rows.Count == 0)
+        else if (ShowNoDataTip && Rows.Count == 0)
         {
-            <li class="dropdown-item">@NoDataTip</li>
+            <div class="dropdown-item">@NoDataTip</div>
         }
-    </ul>
-</div>
+        else
+        {
+            <div class="dropdown-menu-body">
+                @foreach (var item in Rows)
+                {
+                    @RenderRow(item)
+                }
+            </div>
+        }
+    </div>;
+
+    RenderFragment<TValue> RenderRow => item =>
+    @<div @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
+        @if (ItemTemplate != null)
+        {
+            @ItemTemplate(item)
+        }
+        else
+        {
+            <div>@GetDisplayText(item)</div>
+        }
+    </div>;
+
+    RenderFragment<PlaceholderContext> RenderPlaceholderRow => context =>
+    @<div class="dropdown-item" style="@PlaceHolderStyleString">
+        <div class="is-ph"></div>
+    </div>;
+}

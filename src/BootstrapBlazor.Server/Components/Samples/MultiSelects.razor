@@ -114,10 +114,35 @@ private enum MultiSelectEnumFoo
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
-    <section ignore>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
-    <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
-    <section ignore>@SelectedSearchItemsValue</section>
-    <ConsoleLogger @ref="Logger"></ConsoleLogger>
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue"
+                         ShowSearch="true" IsClearable="_isClearable" OnSearchTextChanged="@OnSearch">
+            </MultiSelect>
+        </div>
+        <div class="col-12 col-sm-6">
+            <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue"
+                         ShowSearch="true" IsClearable="_isClearable">
+            </MultiSelect>
+        </div>
+    </div>
+
+    <section ignore>
+        <p>@SelectedSearchItemsValue</p>
+        <ConsoleLogger @ref="Logger"></ConsoleLogger>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectGroupTitle"]" Introduction="@Localizer["MultiSelectGroupIntro"]" Name="Group">
@@ -269,6 +294,62 @@ private enum MultiSelectEnumFoo
         </div>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiSelectVirtualizeTitle"]"
+           Introduction="@Localizer["MultiSelectVirtualizeIntro"]"
+           Name="IsVirtualize">
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiSelectVirtualizeDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowToolbar" />
+                    <Checkbox @bind-Value="@_showToolbar" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row mb-3">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemValue1" DefaultVirtualizeItemText="@_virtualItemText1"
+                         OnQueryAsync="OnQueryAsync"
+                         ShowSearch="_showSearch" ShowToolbar="_showToolbar"
+                         IsClearable="_isClearable">
+            </MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@_virtualItemValue1"></Display>
+        </div>
+    </div>
+ 
+    <p class="code-label">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemValue2" DefaultVirtualizeItemText="@_virtualItemText2"
+                         Items="VirtualItems"
+                         ShowSearch="_showSearch" ShowToolbar="_showToolbar"
+                         IsClearable="_isClearable">
+            </MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@_virtualItemValue2"></Display>
+        </div>
+    </div>
+ </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 

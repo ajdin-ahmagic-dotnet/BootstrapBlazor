@@ -1,4 +1,6 @@
-﻿const vibrate = () => {
+﻿import EventHandler from "./event-handler.js"
+
+const vibrate = () => {
     if ('vibrate' in window.navigator) {
         window.navigator.vibrate([200, 100, 200])
         const handler = window.setTimeout(function () {
@@ -754,6 +756,7 @@ export function setTheme(theme, sync) {
         })
         saveTheme(theme);
     }
+    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
 }
 
 export function setActiveTheme(el, activeItem) {
@@ -798,7 +801,7 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
             }
             else {
                 const value = obj2[key];
-                if (skipNull && value === null) {
+                if (skipNull && (value === null || value === void 0)) {
                     continue;
                 }
                 obj1[key] = obj2[key];
@@ -819,7 +822,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             if (this._init === false) {
                 this._init = true;
-                cb();
+                cb(this);
             }
             return this;
         },
@@ -829,7 +832,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             if (this._items.length === 0 && cb) {
                 this._init = false;
-                cb();
+                cb(this);
             }
         }
     };

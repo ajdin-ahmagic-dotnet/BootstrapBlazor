@@ -3,9 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -29,6 +26,8 @@ public sealed partial class TreeViews
     private List<TreeViewItem<TreeFoo>> NormalItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>> EditItems { get; } = TreeFoo.GetTreeItems();
 
     private bool AutoCheckChildren { get; set; }
 
@@ -216,6 +215,12 @@ public sealed partial class TreeViews
             items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text, HasChildren = Random.Shared.Next(100) > 80 });
         });
         return items;
+    }
+
+    private Task<bool> OnUpdateCallbackAsync(TreeFoo foo, string? text)
+    {
+        foo.Text = text;
+        return Task.FromResult(true);
     }
 
     /// <summary>
