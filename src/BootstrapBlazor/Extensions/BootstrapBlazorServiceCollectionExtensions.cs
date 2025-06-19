@@ -248,4 +248,20 @@ public static class BootstrapBlazorServiceCollectionExtensions
         }
         return services;
     }
+
+    /// <summary>
+    /// Adds a hosted service that automatically clears the dynamic object type cache for table operations.
+    /// </summary>
+    /// <remarks>This method registers a background task that periodically clears cached dynamic object types
+    /// used in table operations. It is useful for managing memory usage and ensuring cache consistency in applications
+    /// that rely on dynamic object types.</remarks>
+    /// <param name="services">The <see cref="IServiceCollection"/> to which the hosted service is added.</param>
+    /// <returns>The <see cref="IServiceCollection"/> instance with the hosted service registered.</returns>
+    public static IServiceCollection AddAutoClearTableDynamicObjectTypeCacheTask(this IServiceCollection services)
+    {
+        // 添加自动清理动态对象类型缓存任务
+        services.AddHostedService<AutoClearTableDynamicObjectTypeCacheTask>();
+
+        return services;
+    }
 }
